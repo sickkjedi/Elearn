@@ -1,0 +1,120 @@
+*.py[cod]
+debug.html
+debug.json
+*.log
+
+test/unit/coverage/
+
+# C extensions
+*.so
+*.swp
+
+
+#OSX
+.DS_Store
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+__pycache__
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+htmlcov/*
+
+# Translations
+*.mo
+
+#PyCharm
+.idea/
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+.idea
+
+# Compass sass cache files
+*.sass-cache
+
+
+django.log
+django.log.*
+static_watchdog.py
+student_request.*
+zlist.txt
+
+sentry.db
+
+# Temporary storage for hashed value of static files
+bcore/static/static-hashes
+
+docs/.doctrees
+docs/build
+
+#Eclipse
+.pydevproject.swp
+.settings
+
+# Translations
+*.mo
+
+
+# Local Storage Service
+bcore/static/storage
+bcore/static/CACHE/
+
+
+#####=== Vim ===#####
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
+#####=== OSX ===#####
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+venv/
+
+# ignore node_modules directories from npm
+node_modules/
+
+
+# for now make sure our js built with webpack is part of repo
+!/bcore/static/dist/

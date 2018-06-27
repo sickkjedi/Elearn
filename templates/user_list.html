@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %}User list{% endblock %}
+
+{% block content %}
+<h2>User list</h2>
+
+    <table id="userTable" class="display">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Is Active</th>
+            <th>Address</th>
+            <th>DOB</th>
+            <th>Activity</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+            <tr>
+
+                <td><a href='{% url 'edit_user' user.id %}'>{{ user.first_name|add:" "|add:user.last_name }}</a></td>
+                <td>{{ user.email }}</td>
+                <td class="is-active">{{ user.is_active }}</td>
+                <td>{{ user.address }}</td>
+                <td>{{ user.date_of_birth }}</td>
+                <td>
+                    {% if user.is_verified == False %}
+                        <button data-url="{% url 'verified' pk=user.id %}" type="button" class="verify_btn">Verify</button>
+                    {% endif %}
+
+                    {% if user.is_active == True %}
+                        <button data-url="{% url 'suspend' pk=user.id %}" data-active="{{ user.is_active }}" type="button" class="suspend_btn">Suspend</button>
+                    {% elif user.is_active == False%}
+                        <button data-url="{% url 'suspend' pk=user.id %}" data-active="{{ user.is_active }}" type="button" class="suspend_btn">Unsuspend</button>
+                    {% endif %}
+
+                </td>
+
+            </tr>
+        {% endfor %}
+
+    </tbody>
+    </table>
+    <button type="button" onclick="location.pathname='{% url 'create' %}'">Add User</button>
+{% endblock %}
+
+{% block js %}
+    <script>
+        $(document).ready( function () {
+        $('#userTable').dataTable();
+        } );
+
+    </script>
+
+    <script>
+    $.ajaxSetup({
+         beforeSend: function(xhr, settings) {
+             function getCookie(name) {
+                 var cookieValue = null;
+                 if (document.cookie && document.cookie != '') {
+                     var cookies = document.cookie.split(';');
+                     for (var i = 0; i < cookies.length; i++) {
+                         var cookie = jQuery.trim(cookies[i]);
+                         // Does this cookie string begin with the name we want?
+                         if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                             cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                             break;
+                         }
+                     }
+                 }
+                 return cookieValue;
+             }
+             if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                 // Only send the token to relative URLs i.e. locally.
+                 xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+             }
+         }
+    });
+    $(function(){
+    $(".verify_btn").click(function(){
+        var $button = $(this);
+        var url = $button.data('url');
+        $.ajax({
+            url: url,
+            type: 'post',
+            data: {is_verified: true},
+            dataType: '',
+            success: function (data) {
+                $button.remove();
+                console.log(data);
+            }
+        });
+        return false;
+        });
+    });
+
+     $(function(){
+    $(".suspend_btn").click(function(){
+        var $button = $(this);
+        var url = $button.data('url');
+        var active = $button.data('active') != 'True';
+        $.ajax({
+            url: url,
+            type: 'post',
+            data: {is_active: active},
+            dataType: '',
+            success: function (data) {
+                var activeText = active ? "True" : "False";
+                $button.data('active', activeText);
+                $button.text(active ? "Suspend" : "Unsuspend");
+                $button.closest('tr').find('.is-active').text(activeText);
+            }
+        });
+        return false;
+        });
+    });
+    </script>
+{% endblock %}

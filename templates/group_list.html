@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Group list{% endblock %}
+
+{% block content %}
+<h2>Group list</h2>
+
+    <table id="groupTable" class="display">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Year</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for group in groups %}
+            <tr>
+
+                <td><a href='{% url 'edit_group' group.id %}'>{{ group.group_name }}</a></td>
+                <td>{{ group.description }}</td>
+                <td>{{ group.year }}</td>
+
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+
+    <button type="button" onclick="location.pathname='{% url 'add_group' %}'">Add Group</button>
+
+{% endblock %}
+
+{% block js %}
+    <script>
+        $(document).ready( function () {
+        $('#groupTable').dataTable();
+        } );
+
+    </script>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{ form.media }}
+    <meta charset="UTF-8">
+    <title>{% block title %}E Learning{% endblock %}</title>
+</head>
+<body>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+        <script type="text/javascript"></script>
+        {% block js %}
+        {% endblock %}
+    </main>
+
+</body>
+</html>

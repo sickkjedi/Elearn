@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit group{% endblock %}
+
+{% block content %}
+    {{ form.media }}
+    <script type="text/javascript" src="{% url 'jsi18n' %}" > </script>
+
+<h2>Group: {{ object.group_name }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class = "btn-holder">
+        <button type="submit" value="Update">Save</button>
+    </div>
+
+</form>
+{% endblock %}
