@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit user{% endblock %}
+
+{% block content %}
+<h2>User verification</h2>
+<form method="post">
+    {% csrf_token %}
+    <p>User {{ object.first_name|add:" "|add:object.last_name }} verified</p>
+    <button type="submit" value="Update">OK</button>
+</form>
+{% endblock %}

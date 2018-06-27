@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Course list{% endblock %}
+
+{% block content %}
+<h2>Course list</h2>
+
+    <table id="courseTable" class="display">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Teacher</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for course in courses %}
+            <tr>
+
+                <td><a href='{% url 'edit_course' course.id %}'>{{ course.course_name }}</a></td>
+                <td>{{ course.description }}</td>
+                <td>{{ course.teacher }}</td>
+
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+
+    <button type="button" onclick="location.pathname='{% url 'add_course' %}'">Add Course</button>
+
+{% endblock %}
+
+{% block js %}
+    <script>
+        $(document).ready( function () {
+        $('#courseTable').dataTable();
+        } );
+
+    </script>
+
+{% endblock %}

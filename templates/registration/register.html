@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+    {% if request.user.is_staff %}
+        <h2>Add User</h2>
+    {% else %}
+        <h2>Registration</h2>
+    {% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    {% if request.user.is_staff %}
+         <input type="checkbox" name="is_verified" checked style="display: none"/>
+    {% endif %}
+    {{ form.as_p }}
+    {% if request.user.is_staff %}
+        <button type="submit">Add</button>
+    {% else %}
+        <button type="submit">Register</button>
+    {% endif %}
+</form>
+{% endblock %}

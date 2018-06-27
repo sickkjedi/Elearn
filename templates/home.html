@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if request.user.is_authenticated and request.user.is_verified == True %}
+    Hi {{ request.user.first_name|add:" "|add:request.user.last_name }}!
+    {% if request.user.is_admin %}
+        <p><a href="{% url 'users' %}">Users</a></p>
+        <p><a href="{% url 'groups' %}">Groups</a></p>
+        <p><a href="{% url 'courses' %}">Courses</a></p>
+    {% endif %}
+    <p><a href="{% url 'logout' %}">logout</a></p>
+{% elif request.user.is_authenticated and request.user.is_verified == False %}
+    <p>You are not verified. Please wait to be verified by administrator.</p>
+    <p><a href="{% url 'logout' %}">logout</a></p>
+{% else %}
+    <p>You are not logged in</p>
+    <a href="{% url 'login' %}">login</a>
+{% endif %}
+{% endblock %}
