@@ -20,7 +20,6 @@ class Courses(models.Model):
     description = models.CharField(max_length=255, default='')
     teacher = models.CharField(max_length=50, default='')
     groups = models.ManyToManyField(Groups)
-    chapters = models.ManyToManyField("Chapters")
 
     def __str__(self):
         return self.course_name
@@ -32,6 +31,8 @@ class Courses(models.Model):
 class TeachingElementBase(models.Model):
     name = models.CharField(max_length=128)
     description = models.CharField(max_length=255)
+    course = models.ForeignKey("Courses", on_delete=models.CASCADE, default=None)
+    chapter = models.ForeignKey("Chapters", on_delete=models.CASCADE, null=True, default=None)
 
     def __str__(self):
         return self.name
@@ -49,5 +50,9 @@ class Reflection(TeachingElementBase):
 
 class Chapters(models.Model):
     name = models.CharField(max_length=255)
-    elements = models.ManyToManyField(TeachingElementBase)
+    course = models.ForeignKey("Courses", on_delete=models.CASCADE, default=None)
+
+    def __str__(self):
+        return self.name
+
 

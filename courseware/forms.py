@@ -35,9 +35,16 @@ class CourseEditForm(ModelForm):
                                             is_stacked=False),
                                      label='')
 
+    chapters = ModelMultipleChoiceField(queryset=Chapters.objects.all(),
+                                        required=False,
+                                        widget=FilteredSelectMultiple(
+                                            verbose_name='Chapters',
+                                            is_stacked=False),
+                                     label='')
+
     class Meta:
         model = Courses
-        fields = ['course_name', 'description', 'teacher', 'groups']
+        fields = ['course_name', 'description', 'teacher', 'groups', 'chapters']
 
     class Media:
         js = ['/admin/jsi18n/']
@@ -50,7 +57,7 @@ class ChapterEditForm(ModelForm):
     elements = ModelMultipleChoiceField(queryset=TeachingElementBase.objects.all(),
                                         required=False,
                                         widget=FilteredSelectMultiple(
-                                            verbose_name='User',
+                                            verbose_name='Elements',
                                             is_stacked=False),
                                      label='')
 
@@ -67,7 +74,14 @@ class ChapterEditForm(ModelForm):
 
 class HtmlTEForm(ModelForm):
     html = CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 50, 'class': 'form-control'}))
+    #
+    # def __init__(self, *args, **kwargs):
+    #     self.course_id = kwargs.pop('course_id', None)
+    #     super(HtmlTEForm, self).__init__(*args, **kwargs)
 
     class Meta:
         model = HtmlTE
         fields = ['name', 'description', 'html']
+
+
+

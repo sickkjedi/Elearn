@@ -1,4 +1,3 @@
-from django.db.models import Count
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView
 from courseware.models import Groups, Courses, TeachingElementBase, HtmlTE, Reflection, Chapters
@@ -38,7 +37,7 @@ class AddCourse(CreateView):
     context_object_name = 'courses'
     template_name = 'add_course.html'
     success_url = reverse_lazy('courses')
-    fields = ['course_name', 'description', 'teacher', 'chapters']
+    fields = ['course_name', 'description', 'teacher']
 
 
 class EditCourse(UpdateView):
@@ -53,22 +52,34 @@ class ListElements(ListView):
     fields = ['name']
     template_name = 'elements.html'
 
+    def get_course_id(self):
+        return self.kwargs['pk']
+
 
 class ListHtmlElements(ListView):
     model = HtmlTE
     context_object_name = 'elements'
     template_name = 'element_list.html'
 
+    def get_course_id(self):
+        return self.kwargs['pk']
+
 
 class AddHtmlElement(CreateView):
     from_class = HtmlTEForm
     model = HtmlTE
+    context_object_name = 'element'
     template_name = 'html_element.html'
     fields = ['name', 'description', 'html']
     success_url = reverse_lazy('html_elements')
 
-    def get_form_class(self):
-        return HtmlTEForm
+    # def get_form_kwargs(self):
+    #     kwargs = super(AddHtmlElement, self).get_form_kwargs()
+    #     kwargs.update({'course_id': self.kwargs['pk']})
+    #     return kwargs
+
+    # def get_course_id(self):
+    #     return self.kwargs['pk']
 
 
 class ListReflectionElements(ListView):
@@ -89,14 +100,13 @@ class ListChapters(ListView):
     context_object_name = 'chapters'
     template_name = 'chapter_list.html'
 
-    def get_queryset(self):
-        qs = super(ListChapters, self).get_queryset()
-        return qs.annotate(elements_count=Count('elements'))
+    def get_course_id(self):
+        return self.kwargs['pk']
 
 
 class AddChapter(CreateView):
     model = Chapters
-    fields = ['name', 'elements']
+    fields = ['name']
     template_name = 'add_chapter.html'
     success_url = reverse_lazy('chapters')
 
@@ -108,4 +118,15 @@ class EditChapter(UpdateView):
     success_url = reverse_lazy('chapters')
 
 
+class EditHTMLElement(UpdateView):
+    form_class = HtmlTEForm
+    model = HtmlTE
+    template_name = 'html_element.html'
+    success_url = reverse_lazy('html_elements')
 
+
+class EditReflectionElement(UpdateView):
+    model = Reflection
+    template_name = 'reflection_element.html'
+    fields = ['name', 'description', 'question']
+    success_url = reverse_lazy('reflection_elements')

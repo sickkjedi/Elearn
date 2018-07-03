@@ -16,15 +16,15 @@
         {% for chapter in chapters %}
             <tr>
 
-                <td><a href='{% url 'edit_chapter' chapter.id %}'>{{ chapter.name }}</a></td>
-                <td>{{ chapter.elements_count }}</td>
+                <td><a href='{% url 'edit_chapter' chapter=chapter.id %}'>{{ chapter.name }}</a></td>
+
 
             </tr>
         {% endfor %}
     </tbody>
     </table>
 
-    <button type="button" onclick="location.pathname='{% url 'add_chapter' %}'">Add Chapter</button>
+    <button type="button" onclick="location.pathname='{% url 'add_chapter' view.get_course_id%}'">Add Chapter</button>
 {% endblock %}
 
 {% block js %}

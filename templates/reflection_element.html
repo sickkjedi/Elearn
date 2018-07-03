@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Add Reflection Element{% endblock %}
+{% block title %}Reflection Element{% endblock %}
 
 {% block content %}
     {% if request.user.is_staff %}
@@ -15,7 +15,11 @@
     {{ form.as_p }}
 
     {% if request.user.is_staff %}
-        <button type="submit">Add</button>
+       {% if 'edit_element' in request.get_full_path %}
+            <button type="submit" value="Update">Save</button>
+        {% elif 'add' in request.get_full_path %}
+            <button type="submit">Add</button>
+        {% endif %}
     {% endif %}
 
 </form>

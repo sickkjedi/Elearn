@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %}Add course{% endblock %}
+{% block title %}Html Element{% endblock %}
 
 {% block content %}
     {% if request.user.is_staff %}
-        <h2>Html Teaching Element</h2>
+        <h2>Html Element</h2>
     {% else %}
         <meta http-equiv="REFRESH" content="0;url={% url 'home' %}">
     {% endif %}
@@ -15,7 +15,11 @@
     {{ form.as_p }}
 
     {% if request.user.is_staff %}
-        <button type="submit">Add</button>
+        {% if 'edit_element' in request.get_full_path %}
+            <button type="submit" value="Update">Save</button>
+        {% elif 'add' in request.get_full_path %}
+            <button type="submit">Add</button>
+        {% endif %}
     {% endif %}
 
 </form>
