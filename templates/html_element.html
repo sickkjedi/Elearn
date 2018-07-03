@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Add course{% endblock %}
+
+{% block content %}
+    {% if request.user.is_staff %}
+        <h2>Html Teaching Element</h2>
+    {% else %}
+        <meta http-equiv="REFRESH" content="0;url={% url 'home' %}">
+    {% endif %}
+
+<form method="post">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    {% if request.user.is_staff %}
+        <button type="submit">Add</button>
+    {% endif %}
+
+</form>
+{% endblock %}

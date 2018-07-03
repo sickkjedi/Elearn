@@ -9,6 +9,8 @@
         <p><a href="{% url 'users' %}">Users</a></p>
         <p><a href="{% url 'groups' %}">Groups</a></p>
         <p><a href="{% url 'courses' %}">Courses</a></p>
+        <p><a href="{% url 'chapters' %}">Chapters</a></p>
+        <p><a href="{% url 'elements' %}">Elements</a></p>
     {% endif %}
     <p><a href="{% url 'logout' %}">logout</a></p>
 {% elif request.user.is_authenticated and request.user.is_verified == False %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ elements.type }} element list{% endblock %}
+
+{% block content %}
+<h2>{{ elements.type }} element list</h2>
+
+    <table id="elementsTable" class="display">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for element in elements %}
+            <tr>
+
+                <td><a href='{% url 'edit_chapter' element.id %}'>{{ element.name }}</a></td>
+                <td>{{ element.description }}</td>
+
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+
+    {% if request.get_full_path == "/elements/html"%}
+        <button type="button" onclick="location.pathname='{% url 'add_html_element' %}'">Add Element</button>
+    {% elif request.get_full_path == "/elements/reflection"%}
+        <button type="button" onclick="location.pathname='{% url 'add_reflection_element' %}'">Add Element</button>
+    {% endif %}
+{% endblock %}
+
+{% block js %}
+    <script>
+        $(document).ready( function () {
+        $('#elementsTable').dataTable();
+        } );
+
+    </script>
+
+{% endblock %}
