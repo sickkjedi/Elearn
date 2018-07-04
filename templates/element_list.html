@@ -3,7 +3,7 @@
 {% block title %}{{ elements.type }} element list{% endblock %}
 
 {% block content %}
-<h2>{{ elements.type }} element list</h2>
+<h2>{{ type }} element list</h2>
 
     <table id="elementsTable" class="display">
     <thead>
@@ -16,9 +16,9 @@
         {% for element in elements %}
             <tr>
 
-                {% if request.get_full_path == "/elements/html"%}
+                {% if "html" in request.get_full_path %}
                     <td><a href='{% url 'edit_html_element' element.id %}'>{{ element.name }}</a></td>
-                {% elif request.get_full_path == "/elements/reflection"%}
+                {% elif "reflection" in request.get_full_path %}
                     <td><a href='{% url 'edit_reflection_element' element.id %}'>{{ element.name }}</a></td>
                 {% endif %}
 
@@ -30,9 +30,9 @@
     </table>
 
     {% if "/elements/html" in request.get_full_path %}
-        <button type="button" onclick="location.pathname='{% url 'add_html_element' view.get_course_id%}'">Add Element</button>
+        <button type="button" onclick="location.pathname='{% url 'add_html_element' course_id %}'">Add Element</button>
     {% elif "/elements/reflection" in request.get_full_path %}
-        <button type="button" onclick="location.pathname='{% url 'add_reflection_element' view.get_course_id%}'">Add Element</button>
+        <button type="button" onclick="location.pathname='{% url 'add_reflection_element' course_id %}'">Add Element</button>
     {% endif %}
 {% endblock %}
 
