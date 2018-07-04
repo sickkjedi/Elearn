@@ -1,9 +1,11 @@
-from django.db.models import Count
+from abc import ABC
+
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView
+from django.urls import reverse_lazy, reverse
+
+from courseware.forms import GroupEditForm, CourseEditForm, HtmlTEForm, ChapterEditForm, ReflectionForm
 from courseware.models import Groups, Courses, TeachingElementBase, HtmlTE, Reflection, Chapters
-from django.urls import reverse_lazy
-from courseware.forms import GroupEditForm, CourseEditForm, HtmlTEForm, ChapterEditForm
 
 
 class ListGroups(ListView):
@@ -38,7 +40,7 @@ class AddCourse(CreateView):
     context_object_name = 'courses'
     template_name = 'add_course.html'
     success_url = reverse_lazy('courses')
-    fields = ['course_name', 'description', 'teacher', 'chapters']
+    fields = ['course_name', 'description', 'teacher']
 
 
 class EditCourse(UpdateView):
@@ -53,35 +55,69 @@ class ListElements(ListView):
     fields = ['name']
     template_name = 'elements.html'
 
-
-class ListHtmlElements(ListView):
-    model = HtmlTE
-    context_object_name = 'elements'
-    template_name = 'element_list.html'
+    def get_course_id(self):
+        return self.kwargs['pk']
 
 
 class AddHtmlElement(CreateView):
-    from_class = HtmlTEForm
+    form_class = HtmlTEForm
     model = HtmlTE
+    context_object_name = 'element'
     template_name = 'html_element.html'
-    fields = ['name', 'description', 'html']
-    success_url = reverse_lazy('html_elements')
 
-    def get_form_class(self):
-        return HtmlTEForm
+    def get_success_url(self):
+        url = reverse('html_elements', kwargs={'pk': self.object.course_id})
+        return url
+
+    def get_form_kwargs(self):
+        kwargs = super(AddHtmlElement, self).get_form_kwargs()
+        kwargs.update({'course_id': self.kwargs['pk']})
+        return kwargs
 
 
-class ListReflectionElements(ListView):
+class ListTEIElements(ListView, ABC):
+    tei_type = None
+
+    def get_course_id(self):
+        return self.kwargs['pk']
+
+    def get_queryset(self):
+        return self.model.objects.filter(course=self.get_course_id())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['course_id'] = self.get_course_id()
+        context['type'] = self.tei_type
+        return context
+
+
+class ListHtmlElements(ListTEIElements):
+    model = HtmlTE
+    context_object_name = 'elements'
+    template_name = 'element_list.html'
+    tei_type = "HTML"
+
+
+class ListReflectionElements(ListTEIElements):
     model = Reflection
     context_object_name = 'elements'
     template_name = 'element_list.html'
+    tei_type = "Reflection"
 
 
 class AddReflectionElement(CreateView):
+    form_class = ReflectionForm
     model = Reflection
     template_name = 'reflection_element.html'
-    fields = ['name', 'description', 'question']
-    success_url = reverse_lazy('reflection_elements')
+
+    def get_success_url(self):
+        url = reverse('reflection_elements', kwargs={'pk': self.object.course_id})
+        return url
+
+    def get_form_kwargs(self):
+        kwargs = super(AddReflectionElement, self).get_form_kwargs()
+        kwargs.update({'course_id': self.kwargs['pk']})
+        return kwargs
 
 
 class ListChapters(ListView):
@@ -89,14 +125,13 @@ class ListChapters(ListView):
     context_object_name = 'chapters'
     template_name = 'chapter_list.html'
 
-    def get_queryset(self):
-        qs = super(ListChapters, self).get_queryset()
-        return qs.annotate(elements_count=Count('elements'))
+    def get_course_id(self):
+        return self.kwargs['pk']
 
 
 class AddChapter(CreateView):
     model = Chapters
-    fields = ['name', 'elements']
+    fields = ['name']
     template_name = 'add_chapter.html'
     success_url = reverse_lazy('chapters')
 
@@ -108,4 +143,31 @@ class EditChapter(UpdateView):
     success_url = reverse_lazy('chapters')
 
 
+class EditHTMLElement(UpdateView):
+    form_class = HtmlTEForm
+    model = HtmlTE
+    template_name = 'html_element.html'
 
+    def get_success_url(self):
+        url = reverse('html_elements', kwargs={'pk': self.object.course_id})
+        return url
+
+    def get_form_kwargs(self):
+        kwargs = super(EditHTMLElement, self).get_form_kwargs()
+        kwargs.update({'course_id': self.kwargs['pk']})
+        return kwargs
+
+
+class EditReflectionElement(UpdateView):
+    form_class = ReflectionForm
+    model = Reflection
+    template_name = 'reflection_element.html'
+
+    def get_success_url(self):
+        url = reverse('reflection_elements', kwargs={'pk': self.object.course_id})
+        return url
+
+    def get_form_kwargs(self):
+        kwargs = super(EditReflectionElement, self).get_form_kwargs()
+        kwargs.update({'course_id': self.kwargs['pk']})
+        return kwargs

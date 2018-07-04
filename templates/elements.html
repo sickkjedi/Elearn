@@ -4,7 +4,7 @@
 
 {% block content %}
 
-    <p><a href="{% url 'html_elements' %}">HTML</a></p>
-    <p><a href="{% url 'reflection_elements' %}">Reflection</a></p>
+    <p><a href="{% url 'html_elements' view.get_course_id%}">HTML</a></p>
+    <p><a href="{% url 'reflection_elements' view.get_course_id%}">Reflection</a></p>
 
 {% endblock %}

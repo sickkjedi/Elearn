@@ -3,7 +3,7 @@
 {% block title %}{{ elements.type }} element list{% endblock %}
 
 {% block content %}
-<h2>{{ elements.type }} element list</h2>
+<h2>{{ type }} element list</h2>
 
     <table id="elementsTable" class="display">
     <thead>
@@ -16,7 +16,12 @@
         {% for element in elements %}
             <tr>
 
-                <td><a href='{% url 'edit_chapter' element.id %}'>{{ element.name }}</a></td>
+                {% if "html" in request.get_full_path %}
+                    <td><a href='{% url 'edit_html_element' element.id %}'>{{ element.name }}</a></td>
+                {% elif "reflection" in request.get_full_path %}
+                    <td><a href='{% url 'edit_reflection_element' element.id %}'>{{ element.name }}</a></td>
+                {% endif %}
+
                 <td>{{ element.description }}</td>
 
             </tr>
@@ -24,10 +29,10 @@
     </tbody>
     </table>
 
-    {% if request.get_full_path == "/elements/html"%}
-        <button type="button" onclick="location.pathname='{% url 'add_html_element' %}'">Add Element</button>
-    {% elif request.get_full_path == "/elements/reflection"%}
-        <button type="button" onclick="location.pathname='{% url 'add_reflection_element' %}'">Add Element</button>
+    {% if "/elements/html" in request.get_full_path %}
+        <button type="button" onclick="location.pathname='{% url 'add_html_element' course_id %}'">Add Element</button>
+    {% elif "/elements/reflection" in request.get_full_path %}
+        <button type="button" onclick="location.pathname='{% url 'add_reflection_element' course_id %}'">Add Element</button>
     {% endif %}
 {% endblock %}
 
