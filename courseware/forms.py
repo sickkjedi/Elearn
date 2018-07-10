@@ -1,3 +1,5 @@
+from abc import ABC, abstractmethod
+
 from django.forms import ModelForm, ModelMultipleChoiceField, CharField
 
 from Elearn.settings import BASE_DIR
@@ -75,6 +77,10 @@ class ChapterEditForm(ModelForm):
 class HtmlTEForm(ModelForm):
     html = CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 50, 'class': 'form-control'}))
 
+    class Meta:
+        model = HtmlTE
+        fields = ['name', 'description', 'html']
+
     def __init__(self, *args, **kwargs):
         self.course_id = kwargs.pop('course_id', None)
         super(HtmlTEForm, self).__init__(*args, **kwargs)
@@ -87,12 +93,12 @@ class HtmlTEForm(ModelForm):
             instance.save()
         return instance
 
-    class Meta:
-        model = HtmlTE
-        fields = ['name', 'description', 'html']
-
 
 class ReflectionForm(ModelForm):
+
+    class Meta:
+        model = Reflection
+        fields = ['name', 'description', 'question']
 
     def __init__(self, *args, **kwargs):
         self.course_id = kwargs.pop('course_id', None)
@@ -106,6 +112,3 @@ class ReflectionForm(ModelForm):
             instance.save()
         return instance
 
-    class Meta:
-        model = Reflection
-        fields = ['name', 'description', 'question']
