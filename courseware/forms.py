@@ -55,6 +55,25 @@ class CourseEditForm(ModelForm):
         }
 
 
+class ChapterForm(ModelForm):
+
+    class Meta:
+        model = Chapters
+        fields = ['name']
+
+    def __init__(self, *args, **kwargs):
+        self.course_id = kwargs.pop('course_id', None)
+        super(ChapterForm, self).__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        instance = super(ChapterForm, self).save(commit=False)
+        if not instance.course_id:
+            instance.course_id = self.course_id
+        if commit:
+            instance.save()
+        return instance
+
+
 class ChapterEditForm(ModelForm):
     elements = ModelMultipleChoiceField(queryset=TeachingElementBase.objects.all(),
                                         required=False,

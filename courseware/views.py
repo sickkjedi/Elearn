@@ -4,7 +4,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView
 from django.urls import reverse_lazy, reverse
 
-from courseware.forms import GroupEditForm, CourseEditForm, HtmlTEForm, ChapterEditForm, ReflectionForm
+from courseware.forms import GroupEditForm, CourseEditForm, HtmlTEForm, ChapterEditForm, ReflectionForm, ChapterForm
 from courseware.models import Groups, Courses, TeachingElementBase, HtmlTE, Reflection, Chapters
 
 
@@ -37,7 +37,6 @@ class ListCourses(ListView):
 
 class AddCourse(CreateView):
     model = Courses
-    context_object_name = 'courses'
     template_name = 'add_course.html'
     success_url = reverse_lazy('courses')
     fields = ['course_name', 'description', 'teacher']
@@ -48,6 +47,38 @@ class EditCourse(UpdateView):
     model = Courses
     template_name = 'edit_group_course.html'
     success_url = reverse_lazy('courses')
+
+
+class ListChapters(ListView):
+    model = Chapters
+    context_object_name = 'chapters'
+    template_name = 'chapter_list.html'
+
+    def get_course_id(self):
+        return self.kwargs['pk']
+
+
+class AddChapter(CreateView):
+    form_class = ChapterForm
+    model = Chapters
+    template_name = 'add_chapter.html'
+
+    def get_success_url(self):
+        return reverse('chapters', kwargs={'pk': self.object.course_id})
+
+    def get_form_kwargs(self):
+        kwargs = super(AddChapter, self).get_form_kwargs()
+        kwargs.update({'course_id': self.kwargs['pk']})
+        return kwargs
+
+
+class EditChapter(UpdateView):
+    form_class = ChapterEditForm
+    model = Chapters
+    template_name = 'edit_chapter.html'
+
+    def get_success_url(self):
+        return reverse('chapters', kwargs={'pk': self.object.course_id})
 
 
 class ListElements(ListView):
@@ -89,33 +120,38 @@ class ListReflectionElements(ListTEIElements):
     tei_type = "Reflection"
 
 
-class ListChapters(ListView):
-    model = Chapters
-    context_object_name = 'chapters'
-    template_name = 'chapter_list.html'
-
-    def get_course_id(self):
-        return self.kwargs['pk']
-
-
-class AddChapter(CreateView):
-    model = Chapters
-    fields = ['name']
-    template_name = 'add_chapter.html'
-    success_url = reverse_lazy('chapters')
-
-
-class EditChapter(UpdateView):
-    form_class = ChapterEditForm
-    model = Chapters
-    template_name = 'edit_chapter.html'
-    success_url = reverse_lazy('chapters')
-
-
-class EditElement(UpdateView, ABC):
+class EditElement(UpdateView, CreateView, ABC):
 
     def get_form_kwargs(self):
         kwargs = super(EditElement, self).get_form_kwargs()
+        kwargs.update({'course_id': self.kwargs['pk']})
+        return kwargs
+
+    def get_success_url(self):
+        url = None
+        if self.object.type == "HTML":
+            url = reverse('html_elements', kwargs={'pk': self.object.course_id})
+        elif self.object.type == "Reflection":
+            url = reverse('reflection_elements', kwargs={'pk': self.object.course_id})
+        return url
+
+
+class EditHTMLElement(EditElement):
+    form_class = HtmlTEForm
+    model = HtmlTE
+    template_name = 'html_element.html'
+
+
+class EditReflectionElement(EditElement):
+    form_class = ReflectionForm
+    model = Reflection
+    template_name = 'reflection_element.html'
+
+
+class AddElement(CreateView, ABC):
+
+    def get_form_kwargs(self):
+        kwargs = super(AddElement, self).get_form_kwargs()
         kwargs.update({'course_id': self.kwargs['pk']})
         return kwargs
 
@@ -135,19 +171,8 @@ class AddHtmlElement(EditElement):
     template_name = 'html_element.html'
 
 
-class AddReflectionElement(EditElement):
+class AddReflectionElement(AddElement):
     form_class = ReflectionForm
     model = Reflection
     template_name = 'reflection_element.html'
 
-
-class EditHTMLElement(EditElement):
-    form_class = HtmlTEForm
-    model = HtmlTE
-    template_name = 'html_element.html'
-
-
-class EditReflectionElement(EditElement):
-    form_class = ReflectionForm
-    model = Reflection
-    template_name = 'reflection_element.html'

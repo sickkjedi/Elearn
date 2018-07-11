@@ -31,7 +31,7 @@ class Courses(models.Model):
 class TeachingElementBase(models.Model):
     name = models.CharField(max_length=128)
     description = models.CharField(max_length=255)
-    course = models.ForeignKey("Courses", on_delete=models.CASCADE, default=None)
+    course = models.ForeignKey("Courses", on_delete=models.CASCADE)
     chapter = models.ForeignKey("Chapters", on_delete=models.CASCADE, null=True, default=None)
 
     def __str__(self):
@@ -50,7 +50,7 @@ class Reflection(TeachingElementBase):
 
 class Chapters(models.Model):
     name = models.CharField(max_length=255)
-    course = models.ForeignKey("Courses", on_delete=models.CASCADE, default=None)
+    course = models.ForeignKey("Courses", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

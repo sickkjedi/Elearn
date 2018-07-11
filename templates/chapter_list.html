@@ -9,15 +9,13 @@
     <thead>
         <tr>
             <th>Name</th>
-            <th># of Elements</th>
         </tr>
     </thead>
     <tbody>
         {% for chapter in chapters %}
             <tr>
 
-                <td><a href='{% url 'edit_chapter' chapter=chapter.id %}'>{{ chapter.name }}</a></td>
-
+                <td><a href='{% url 'edit_chapter' chapter.id %}'>{{ chapter.name }}</a></td>
 
             </tr>
         {% endfor %}
