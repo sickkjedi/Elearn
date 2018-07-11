@@ -3,6 +3,13 @@
 {% block title %}Edit user{% endblock %}
 
 {% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'users' %}">Users</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit User</li>
+  </ol>
+</nav>
 <h2>User: {{ object.first_name|add:" "|add:object.last_name }}</h2>
 <form method="post">
   {% csrf_token %}

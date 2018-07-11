@@ -3,6 +3,14 @@
 {% block title %}Create Element{% endblock %}
 
 {% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'courses' %}">Courses</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'edit_course' view.get_course_id %}">Edit Course</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Elements</li>
+    </ol>
+</nav>
 
     <p><a href="{% url 'html_elements' view.get_course_id%}">HTML</a></p>
     <p><a href="{% url 'reflection_elements' view.get_course_id%}">Reflection</a></p>

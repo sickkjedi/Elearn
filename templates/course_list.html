@@ -3,6 +3,12 @@
 {% block title %}Course list{% endblock %}
 
 {% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Courses</li>
+  </ol>
+</nav>
 <h2>Course list</h2>
 
     <table id="courseTable" class="display">

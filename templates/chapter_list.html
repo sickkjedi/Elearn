@@ -3,6 +3,14 @@
 {% block title %}Chapter list{% endblock %}
 
 {% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'courses' %}">Courses</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'edit_course' view.get_course_id %}">Edit Course</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Chapters</li>
+    </ol>
+</nav>
 <h2>Chapter list</h2>
 
     <table id="chapterTable" class="display">
