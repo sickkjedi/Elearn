@@ -16,13 +16,14 @@
     <table id="chapterTable" class="display">
     <thead>
         <tr>
+            <th>Order</th>
             <th>Name</th>
         </tr>
     </thead>
     <tbody>
         {% for chapter in chapters %}
             <tr>
-
+                <td>{{ chapter.order_id }}</td>
                 <td><a href='{% url 'edit_chapter' chapter.id %}'>{{ chapter.name }}</a></td>
 
             </tr>
