@@ -40,7 +40,7 @@
 
     {% if "edit_course" in request.get_full_path %}
         <button type="button" onclick="location.pathname='{% url 'chapters' object.id%}'">Chapters</button>
-        <button type="button" onclick="location.pathname='{% url 'elements' object.id%}'">Elements</button>
+
     {% endif %}
 
 </form>

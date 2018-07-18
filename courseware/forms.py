@@ -101,13 +101,13 @@ class HtmlTEForm(ModelForm):
         fields = ['name', 'description', 'html']
 
     def __init__(self, *args, **kwargs):
-        self.course_id = kwargs.pop('course_id', None)
+        self.chapter_id = kwargs.pop('chapter_id', None)
         super(HtmlTEForm, self).__init__(*args, **kwargs)
 
     def save(self, commit=True):
         instance = super(HtmlTEForm, self).save(commit=False)
-        if not instance.course_id:
-            instance.course_id = self.course_id
+        if not instance.chapter_id:
+            instance.chapter_id = self.chapter_id
         if commit:
             instance.save()
         return instance
@@ -120,13 +120,13 @@ class ReflectionForm(ModelForm):
         fields = ['name', 'description', 'question']
 
     def __init__(self, *args, **kwargs):
-        self.course_id = kwargs.pop('course_id', None)
+        self.chapter_id = kwargs.pop('chapter_id', None)
         super(ReflectionForm, self).__init__(*args, **kwargs)
 
     def save(self, commit=True):
         instance = super(ReflectionForm, self).save(commit=False)
-        if not instance.course_id:
-            instance.course_id = self.course_id
+        if not instance.chapter_id:
+            instance.chapter_id = self.chapter_id
         if commit:
             instance.save()
         return instance

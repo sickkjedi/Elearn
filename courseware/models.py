@@ -31,7 +31,6 @@ class Courses(models.Model):
 class TeachingElementBase(models.Model):
     name = models.CharField(max_length=128)
     description = models.CharField(max_length=255)
-    course = models.ForeignKey("Courses", on_delete=models.CASCADE)
     chapter = models.ForeignKey("Chapters", on_delete=models.CASCADE, null=True, default=None)
 
     def __str__(self):
@@ -57,7 +56,7 @@ class Chapters(models.Model):
         # This means that the model isn't saved to the database yet
         if self._state.adding:
             # Get the maximum display_id value from the database
-            last_id = self.__class__.objects.filter(order_id=self.order_id).aggregate(largest=models.Max('order_id'))['largest']
+            last_id = self.__class__.objects.filter(course=self.course).aggregate(largest=models.Max('order_id'))['largest']
 
             # aggregate can return None! Check it first.
             # If it isn't none, just use the last ID specified (which should be the greatest) and add one to it

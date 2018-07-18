@@ -7,8 +7,8 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
         <li class="breadcrumb-item"><a href="{% url 'courses' %}">Courses</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'edit_course' course_id %}">Edit Course</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'elements' course_id %}">Elements</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'edit_course' chapter_id %}">Edit Course</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'elements' chapter_id %}">Elements</a></li>
         {% if "html" in request.get_full_path %}
             <li class="breadcrumb-item active" aria-current="page">HTML</li>
         {% elif "reflection" in request.get_full_path %}
@@ -43,9 +43,9 @@
     </table>
 
     {% if "/elements/html" in request.get_full_path %}
-        <button type="button" onclick="location.pathname='{% url 'add_html_element' course_id %}'">Add Element</button>
+        <button type="button" onclick="location.pathname='{% url 'add_html_element' chapter_id %}'">Add Element</button>
     {% elif "/elements/reflection" in request.get_full_path %}
-        <button type="button" onclick="location.pathname='{% url 'add_reflection_element' course_id %}'">Add Element</button>
+        <button type="button" onclick="location.pathname='{% url 'add_reflection_element' chapter_id %}'">Add Element</button>
     {% endif %}
 {% endblock %}
 

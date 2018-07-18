@@ -93,15 +93,15 @@ class ListElements(ListView):
 class ListTEIElements(ListView, ABC):
     tei_type = None
 
-    def get_course_id(self):
+    def get_chapter_id(self):
         return self.kwargs['pk']
 
     def get_queryset(self):
-        return self.model.objects.filter(course=self.get_course_id())
+        return self.model.objects.filter(chapter=self.get_chapter_id())
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['course_id'] = self.get_course_id()
+        context = super(ListTEIElements, self).get_context_data(**kwargs)
+        context['chapter_id'] = self.get_chapter_id()
         context['type'] = self.tei_type
         return context
 
@@ -124,7 +124,7 @@ class EditElement(UpdateView, CreateView, ABC):
 
     def get_form_kwargs(self):
         kwargs = super(EditElement, self).get_form_kwargs()
-        kwargs.update({'course_id': self.kwargs['pk']})
+        kwargs.update({'chapter_id': self.kwargs['pk']})
         return kwargs
 
     def get_success_url(self):
@@ -152,15 +152,15 @@ class AddElement(CreateView, ABC):
 
     def get_form_kwargs(self):
         kwargs = super(AddElement, self).get_form_kwargs()
-        kwargs.update({'course_id': self.kwargs['pk']})
+        kwargs.update({'chapter_id': self.kwargs['pk']})
         return kwargs
 
     def get_success_url(self):
         url = None
         if self.object.type == "HTML":
-            url = reverse('html_elements', kwargs={'pk': self.object.course_id})
+            url = reverse('html_elements', kwargs={'pk': self.object.chapter_id})
         elif self.object.type == "Reflection":
-            url = reverse('reflection_elements', kwargs={'pk': self.object.course_id})
+            url = reverse('reflection_elements', kwargs={'pk': self.object.chapter_id})
         return url
 
 
