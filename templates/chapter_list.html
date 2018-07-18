@@ -22,11 +22,13 @@
     </thead>
     <tbody>
         {% for chapter in chapters %}
+            {% if chapter.course_id == view.get_course_id %}
             <tr>
                 <td>{{ chapter.order_id }}</td>
                 <td><a href='{% url 'edit_chapter' chapter.id %}'>{{ chapter.name }}</a></td>
 
             </tr>
+            {% endif %}
         {% endfor %}
     </tbody>
     </table>
