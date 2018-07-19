@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-    {% block title %}
+
+{% block title %}
 {% if "edit_course" in request.get_full_path %}
     Edit course
 {% elif "edit_group" in request.get_full_path %}
@@ -8,6 +9,19 @@
 {% endblock %}
 
 {% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        {% if "edit_course" in request.get_full_path %}
+            <li class="breadcrumb-item"><a href="{% url 'courses' %}">Courses</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Edit Course</li>
+        {% elif "edit_group" in request.get_full_path %}
+            <li class="breadcrumb-item"><a href="{% url 'groups' %}">Groups</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Edit Group</li>
+        {% endif %}
+
+    </ol>
+</nav>
     {{ form.media }}
     <script type="text/javascript" src="{% url 'jsi18n' %}" > </script>
 
@@ -23,9 +37,6 @@
     <div class = "btn-holder">
         <button type="submit" value="Update">Save</button>
     </div>
-
-    <button type="button" onclick="location.pathname='{% url 'chapters' object.id%}'">Chapters</button>
-    <button type="button" onclick="location.pathname='{% url 'elements' object.id%}'">Elements</button>
 
 </form>
 {% endblock %}
