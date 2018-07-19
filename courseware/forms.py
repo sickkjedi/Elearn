@@ -37,16 +37,9 @@ class CourseEditForm(ModelForm):
                                             is_stacked=False),
                                      label='')
 
-    chapters = ModelMultipleChoiceField(queryset=Chapters.objects.all(),
-                                        required=False,
-                                        widget=FilteredSelectMultiple(
-                                            verbose_name='Chapters',
-                                            is_stacked=False),
-                                     label='')
-
     class Meta:
         model = Courses
-        fields = ['course_name', 'description', 'teacher', 'groups', 'chapters']
+        fields = ['course_name', 'description', 'teacher', 'groups']
 
     class Media:
         js = ['/admin/jsi18n/']
@@ -98,7 +91,7 @@ class HtmlTEForm(ModelForm):
 
     class Meta:
         model = HtmlTE
-        fields = ['name', 'description', 'html']
+        fields = ['name', 'description', 'te_type', 'html']
 
     def __init__(self, *args, **kwargs):
         self.chapter_id = kwargs.pop('chapter_id', None)
@@ -117,7 +110,7 @@ class ReflectionForm(ModelForm):
 
     class Meta:
         model = Reflection
-        fields = ['name', 'description', 'question']
+        fields = ['name', 'description', 'te_type', 'question']
 
     def __init__(self, *args, **kwargs):
         self.chapter_id = kwargs.pop('chapter_id', None)

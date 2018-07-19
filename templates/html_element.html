@@ -7,13 +7,9 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
         <li class="breadcrumb-item"><a href="{% url 'courses' %}">Courses</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'edit_course' chapter_id %}">Edit Course</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'chapters' chapter_id %}">Chapters</a></li>
         <li class="breadcrumb-item"><a href="{% url 'elements' chapter_id %}">Elements</a></li>
-        {% if "html" in request.get_full_path %}
-            <li class="breadcrumb-item active" aria-current="page">HTML</li>
-        {% elif "reflection" in request.get_full_path %}
-            <li class="breadcrumb-item active" aria-current="page">Reflection</li>
-        {% endif %}
+        <li class="breadcrumb-item active" aria-current="page">HTML</li>
     </ol>
 </nav>
     {% if request.user.is_staff %}
@@ -28,9 +24,9 @@
     {{ form.as_p }}
 
     {% if request.user.is_staff %}
-        {% if 'edit_element' in request.get_full_path %}
+        {% if 'html' in request.get_full_path %}
             <button type="submit" value="Update">Save</button>
-        {% elif 'add' in request.get_full_path %}
+        {% elif 'add_html' in request.get_full_path %}
             <button type="submit">Add</button>
         {% endif %}
     {% endif %}

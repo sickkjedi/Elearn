@@ -1,8 +1,8 @@
 from abc import ABC
 
 from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView, UpdateView
-from django.urls import reverse_lazy, reverse
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse
 
 from courseware.forms import GroupEditForm, CourseEditForm, HtmlTEForm, ChapterEditForm, ReflectionForm, ChapterForm
 from courseware.models import Groups, Courses, TeachingElementBase, HtmlTE, Reflection, Chapters
@@ -18,15 +18,19 @@ class AddGroup(CreateView):
     model = Groups
     context_object_name = 'groups'
     template_name = 'add_group.html'
-    success_url = reverse_lazy('groups')
     fields = ['group_name', 'description', 'year']
+
+    def get_success_url(self):
+        return reverse('groups')
 
 
 class EditGroup(UpdateView):
     form_class = GroupEditForm
     model = Groups
     template_name = 'edit_group_course.html'
-    success_url = reverse_lazy('groups')
+
+    def get_success_url(self):
+        return reverse('groups')
 
 
 class ListCourses(ListView):
@@ -38,15 +42,26 @@ class ListCourses(ListView):
 class AddCourse(CreateView):
     model = Courses
     template_name = 'add_course.html'
-    success_url = reverse_lazy('courses')
     fields = ['course_name', 'description', 'teacher']
+
+    def get_success_url(self):
+        return reverse('courses')
 
 
 class EditCourse(UpdateView):
     form_class = CourseEditForm
     model = Courses
     template_name = 'edit_group_course.html'
-    success_url = reverse_lazy('courses')
+
+    def get_success_url(self):
+        return reverse('courses')
+
+
+class DeleteCourse(DeleteView):
+    model = Courses
+
+    def get_success_url(self):
+        return reverse('courses')
 
 
 class ListChapters(ListView):
@@ -83,15 +98,8 @@ class EditChapter(UpdateView):
 
 class ListElements(ListView):
     model = TeachingElementBase
-    fields = ['name']
-    template_name = 'elements.html'
-
-    def get_course_id(self):
-        return self.kwargs['pk']
-
-
-class ListTEIElements(ListView, ABC):
-    tei_type = None
+    context_object_name = 'elements'
+    template_name = 'element_list.html'
 
     def get_chapter_id(self):
         return self.kwargs['pk']
@@ -100,24 +108,9 @@ class ListTEIElements(ListView, ABC):
         return self.model.objects.filter(chapter=self.get_chapter_id())
 
     def get_context_data(self, **kwargs):
-        context = super(ListTEIElements, self).get_context_data(**kwargs)
+        context = super(ListElements, self).get_context_data(**kwargs)
         context['chapter_id'] = self.get_chapter_id()
-        context['type'] = self.tei_type
         return context
-
-
-class ListHtmlElements(ListTEIElements):
-    model = HtmlTE
-    context_object_name = 'elements'
-    template_name = 'element_list.html'
-    tei_type = "HTML"
-
-
-class ListReflectionElements(ListTEIElements):
-    model = Reflection
-    context_object_name = 'elements'
-    template_name = 'element_list.html'
-    tei_type = "Reflection"
 
 
 class EditElement(UpdateView, CreateView, ABC):
@@ -156,12 +149,7 @@ class AddElement(CreateView, ABC):
         return kwargs
 
     def get_success_url(self):
-        url = None
-        if self.object.type == "HTML":
-            url = reverse('html_elements', kwargs={'pk': self.object.chapter_id})
-        elif self.object.type == "Reflection":
-            url = reverse('reflection_elements', kwargs={'pk': self.object.chapter_id})
-        return url
+        return reverse('elements', kwargs={'pk': self.object.chapter_id})
 
 
 class AddHtmlElement(EditElement):

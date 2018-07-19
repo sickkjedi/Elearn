@@ -38,10 +38,5 @@
         <button type="submit" value="Update">Save</button>
     </div>
 
-    {% if "edit_course" in request.get_full_path %}
-        <button type="button" onclick="location.pathname='{% url 'chapters' object.id%}'">Chapters</button>
-
-    {% endif %}
-
 </form>
 {% endblock %}

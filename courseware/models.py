@@ -29,8 +29,16 @@ class Courses(models.Model):
 
 
 class TeachingElementBase(models.Model):
+    HTML_TYPE = 'HTML'
+    REFLECTION_TYPE = 'Reflection'
+    TE_TYPES = (
+        (HTML_TYPE, 'HTML'),
+        (REFLECTION_TYPE, 'Reflection'),
+    )
+
     name = models.CharField(max_length=128)
     description = models.CharField(max_length=255)
+    te_type = models.CharField(max_length=20, choices=TE_TYPES, default=None)
     chapter = models.ForeignKey("Chapters", on_delete=models.CASCADE, null=True, default=None)
 
     def __str__(self):
@@ -38,12 +46,10 @@ class TeachingElementBase(models.Model):
 
 
 class HtmlTE(TeachingElementBase):
-    type = models.CharField(default='HTML', max_length=20)
     html = models.TextField()
 
 
 class Reflection(TeachingElementBase):
-    type = models.CharField(default='Reflection', max_length=20)
     question = models.CharField(max_length=255)
 
 
