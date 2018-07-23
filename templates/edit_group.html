@@ -1,10 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}
+    Edit group
+{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'groups' %}">Groups</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ object.group_name }}</li>
+    </ol>
+</nav>
+
+    {{ form.media }}
+    <script type="text/javascript" src="{% url 'jsi18n' %}" > </script>
+
+    <h2>Group: {{ object.group_name }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <div class = "btn-holder">
+        <button type="submit" value="Update">Save</button>
+    </div>
+</form>
+{% endblock %}

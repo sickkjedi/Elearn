@@ -13,7 +13,7 @@
     </ol>
 </nav>
     {% if request.user.is_staff %}
-        <h2>Html Element</h2>
+        <h2>HTML Element</h2>
     {% else %}
         <meta http-equiv="REFRESH" content="0;url={% url 'home' %}">
     {% endif %}

@@ -20,6 +20,7 @@
             <th>Name</th>
             <th>Type</th>
             <th>Description</th>
+            <th>Activity</th>
         </tr>
     </thead>
     <tbody>
@@ -33,6 +34,11 @@
                 {% endif %}
                 <td>{{ element.te_type }}</td>
                 <td>{{ element.description }}</td>
+                <td><form action="{% url 'delete_element' element.id%}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" onclick="return confirm('Are you sure? This will delete the element!')">Delete</button>
+                    </form>
+                </td>
 
             </tr>
         {% endfor %}
