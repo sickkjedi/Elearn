@@ -27,7 +27,7 @@ class AddGroup(CreateView):
 class EditGroup(UpdateView):
     form_class = GroupEditForm
     model = Groups
-    template_name = 'edit_group_course.html'
+    template_name = 'edit_group.html'
 
     def get_success_url(self):
         return reverse('groups')
@@ -51,7 +51,7 @@ class AddCourse(CreateView):
 class EditCourse(UpdateView):
     form_class = CourseEditForm
     model = Courses
-    template_name = 'edit_group_course.html'
+    template_name = 'edit_course.html'
 
     def get_success_url(self):
         return reverse('courses')
@@ -96,6 +96,13 @@ class EditChapter(UpdateView):
         return reverse('chapters', kwargs={'pk': self.object.course_id})
 
 
+class DeleteChapter(DeleteView):
+    model = Chapters
+
+    def get_success_url(self):
+        return reverse('chapters')
+
+
 class ListElements(ListView):
     model = TeachingElementBase
     context_object_name = 'elements'
@@ -113,7 +120,7 @@ class ListElements(ListView):
         return context
 
 
-class EditElement(UpdateView, CreateView, ABC):
+class EditElement(UpdateView, ABC):
 
     def get_form_kwargs(self):
         kwargs = super(EditElement, self).get_form_kwargs()
@@ -121,12 +128,12 @@ class EditElement(UpdateView, CreateView, ABC):
         return kwargs
 
     def get_success_url(self):
-        url = None
-        if self.object.type == "HTML":
-            url = reverse('html_elements', kwargs={'pk': self.object.course_id})
-        elif self.object.type == "Reflection":
-            url = reverse('reflection_elements', kwargs={'pk': self.object.course_id})
-        return url
+        return reverse('elements', kwargs={'pk': self.object.chapter_id})
+
+    def get_context_data(self, **kwargs):
+        context = super(EditElement, self).get_context_data(**kwargs)
+        context['chapter_id'] = self.kwargs['pk']
+        return context
 
 
 class EditHTMLElement(EditElement):
@@ -151,11 +158,15 @@ class AddElement(CreateView, ABC):
     def get_success_url(self):
         return reverse('elements', kwargs={'pk': self.object.chapter_id})
 
+    def get_context_data(self, **kwargs):
+        context = super(AddElement, self).get_context_data(**kwargs)
+        context['chapter_id'] = self.kwargs['pk']
+        return context
 
-class AddHtmlElement(EditElement):
+
+class AddHtmlElement(AddElement):
     form_class = HtmlTEForm
     model = HtmlTE
-    context_object_name = 'element'
     template_name = 'html_element.html'
 
 
@@ -163,4 +174,11 @@ class AddReflectionElement(AddElement):
     form_class = ReflectionForm
     model = Reflection
     template_name = 'reflection_element.html'
+
+
+class DeleteElement(DeleteView):
+    model = TeachingElementBase
+
+    def get_success_url(self):
+        return reverse('elements', kwargs={'pk': self.object.chapter_id})
 

@@ -17,6 +17,7 @@
         <tr>
             <th>Order</th>
             <th>Name</th>
+            <th>Activity</th>
         </tr>
     </thead>
     <tbody>
@@ -25,7 +26,12 @@
             <tr>
                 <td>{{ chapter.order_id }}</td>
                 <td><a href='{% url 'edit_chapter' chapter.id %}'>{{ chapter.name }}</a></td>
-
+                <td><button type="button" onclick="location.pathname='{% url 'elements' chapter.id%}'">Elements</button>
+                    <form action="{% url 'delete_chapter' chapter.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" onclick="return confirm('Are you sure? This will delete the chapter!')">Delete</button>
+                    </form>
+                </td>
             </tr>
             {% endif %}
         {% endfor %}

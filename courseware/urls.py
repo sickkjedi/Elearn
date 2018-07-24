@@ -19,10 +19,12 @@ urlpatterns = [
     path('courses/chapters/elements/html/<int:pk>', views.EditHTMLElement.as_view(), name='edit_html_element'),
     path('courses/chapters/<int:pk>/elements/add_reflection', views.AddReflectionElement.as_view(), name='add_reflection_element'),
     path('courses/chapters/elements/reflection/<int:pk>', views.EditReflectionElement.as_view(), name='edit_reflection_element'),
+    path('courses/chapters/elements/<int:pk>/delete', views.DeleteElement.as_view(), name='delete_element'),
 
     path('courses/<int:pk>/chapters', views.ListChapters.as_view(), name='chapters'),
     path('courses/<int:pk>/chapters/add_chapter', views.AddChapter.as_view(), name='add_chapter'),
     path('courses/chapters/<int:pk>', views.EditChapter.as_view(), name='edit_chapter'),
+    path('courses/chapters/<int:pk>/delete', views.DeleteChapter.as_view(), name='delete_chapter'),
 
     url(r'^admin/jsi18n/$', i18n.null_javascript_catalog, name='jsi18n'),
 ]

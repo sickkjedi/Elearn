@@ -1,35 +1,21 @@
 {% extends 'base.html' %}
 
 {% block title %}
-{% if "edit_course" in request.get_full_path %}
     Edit course
-{% elif "edit_group" in request.get_full_path %}
-    Edit group
-{% endif %}
 {% endblock %}
 
 {% block content %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
-        {% if "edit_course" in request.get_full_path %}
-            <li class="breadcrumb-item"><a href="{% url 'courses' %}">Courses</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Edit Course</li>
-        {% elif "edit_group" in request.get_full_path %}
-            <li class="breadcrumb-item"><a href="{% url 'groups' %}">Groups</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Edit Group</li>
-        {% endif %}
-
+        <li class="breadcrumb-item"><a href="{% url 'courses' %}">Courses</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ object.course_name }}</li>
     </ol>
 </nav>
     {{ form.media }}
     <script type="text/javascript" src="{% url 'jsi18n' %}" > </script>
 
-{% if "edit_course" in request.get_full_path %}
     <h2>Course: {{ object.course_name }}</h2>
-{% elif "edit_group" in request.get_full_path %}
-    <h2>Group: {{ object.group_name }}</h2>
-{% endif %}
 
 <form method="post">
     {% csrf_token %}
