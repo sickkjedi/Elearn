@@ -1,3 +1,11 @@
 .elearn-navbar {
     justify-content: space-between;
 }
+
+.breadcrumb {
+    margin: 2%;
+}
+
+.table {
+    margin: 2%;
+}

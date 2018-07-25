@@ -37,9 +37,9 @@
                     {% endif %}
 
                     {% if user.is_active == True %}
-                        <button data-url="{% url 'suspend' pk=user.id %}" data-active="{{ user.is_active }}" type="button" class="suspend_btn">Suspend</button>
+                        <button data-url="{% url 'suspend' pk=user.id %}" data-active="{{ user.is_active }}" type="button" class="suspend_btn btn btn-outline-secondary">Suspend</button>
                     {% elif user.is_active == False%}
-                        <button data-url="{% url 'suspend' pk=user.id %}" data-active="{{ user.is_active }}" type="button" class="suspend_btn">Unsuspend</button>
+                        <button data-url="{% url 'suspend' pk=user.id %}" data-active="{{ user.is_active }}" type="button" class="suspend_btn btn btn-outline-secondary">Unsuspend</button>
                     {% endif %}
 
                 </td>
@@ -55,11 +55,7 @@
 {% block js %}
     <script>
         $(document).ready( function () {
-        var teble = $('#userTable').dataTable({
-            responsive: true
-        });
-
-        new $.fn.dataTable.FixedHeader( table );
+        $('#userTable').dataTable();
         } );
 
     </script>

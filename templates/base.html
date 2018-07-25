@@ -15,7 +15,7 @@
 
     <main>
 
-        <nav class="elearn-navbar navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="elearn-navbar navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="{% url 'home' %}">Elearning</a>
 
             {% if request.user.is_authenticated and request.user.is_verified == True %}
