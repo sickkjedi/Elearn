@@ -9,18 +9,20 @@
   </ol>
 </nav>
 {% if request.user.is_authenticated and request.user.is_verified == True %}
-    Hi {{ request.user.first_name|add:" "|add:request.user.last_name }}!
     {% if request.user.is_admin %}
-        <p><a href="{% url 'users' %}">Users</a></p>
-        <p><a href="{% url 'groups' %}">Groups</a></p>
-        <p><a href="{% url 'courses' %}">Courses</a></p>
+        <div class="container">
+        <div class="btn-group-vertical">
+            <button type="button" class="btn btn-primary" onclick="location.href = '{% url 'users' %}'">Users</button>
+            <button type="button" class="btn btn-primary" onclick="location.href = '{% url 'groups' %}'">Groups</button>
+            <button type="button" class="btn btn-primary" onclick="location.href = '{% url 'courses' %}'">Courses</button>
+        </div>
+        </div>
     {% endif %}
-    <p><a href="{% url 'logout' %}">logout</a></p>
-{% elif request.user.is_authenticated and request.user.is_verified == False %}
+
+{% elif request.user.is_authenticated and not request.user.is_verified %}
     <p>You are not verified. Please wait to be verified by administrator.</p>
-    <p><a href="{% url 'logout' %}">logout</a></p>
 {% else %}
     <p>You are not logged in</p>
-    <a href="{% url 'login' %}">login</a>
+    <button type="button" class="btn btn-primary" onclick="location.href = '{% url 'login' %}'">Login</button>
 {% endif %}
 {% endblock %}
