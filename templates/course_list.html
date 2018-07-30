@@ -27,11 +27,17 @@
                 <td><a href='{% url 'edit_course' course.id %}'>{{ course.course_name }}</a></td>
                 <td>{{ course.description }}</td>
                 <td>{{ course.teacher }}</td>
-                <td><button type="button" class="btn btn-outline-secondary" onclick="location.pathname='{% url 'chapters' course.id%}'">Chapters</button>
-                    <form action="{% url 'delete_course' course.id %}" method="POST">
+                <td><div class="activity-container">
+                    <div>
+                        <button type="button" class="btn btn-outline-secondary" onclick="location.pathname='{% url 'chapters' course.id%}'">Chapters</button>
+                    </div>
+                        <form action="{% url 'delete_course' course.id %}" method="POST">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Are you sure? This will delete the course!')">Delete</button>
+                        <div>
+                            <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Are you sure? This will delete the course!')">Delete</button>
+                        </div>
                     </form>
+                    </div>
                 </td>
 
             </tr>

@@ -29,6 +29,15 @@ h2 {
     clear: both;
 }
 
+.activity-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.activity-container > div {
+    flex: 0;
+}
+
 .input-form {
     margin-left: 4%;
     margin-right: 4%;
