@@ -1,17 +1,29 @@
 {% extends 'base.html' %}
+{% load bootstrap %}
 
 {% block title %}Edit Chapter{% endblock %}
 
 {% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'courses' %}">Courses</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'chapters' object.id %}">Courses</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ object.name }}</li>
+    </ol>
+</nav>
     {{ form.media }}
 
-<h2>Chapter: {{ object.name }}</h2>
+<h2>Edit Chapter</h2>
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
 
-    <div class = "btn-holder">
-        <button type="submit" value="Update">Save</button>
+    <div class="input-form">
+        {{ form|bootstrap }}
+    </div>
+
+    <div class="save-button">
+        <button type="submit" class="btn btn-outline-primary" value="Update">Save</button>
     </div>
 </form>
 {% endblock %}

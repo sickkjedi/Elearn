@@ -9,9 +9,9 @@
     <li class="breadcrumb-item active" aria-current="page">Groups</li>
   </ol>
 </nav>
-<h2>Group list</h2>
+<h2>Groups</h2>
 
-    <table id="groupTable" class="display">
+    <table id="groupTable" class="table table-striped table-bordered nowrap">
     <thead>
         <tr>
             <th>Name</th>
@@ -32,7 +32,7 @@
     </tbody>
     </table>
 
-    <button type="button" onclick="location.pathname='{% url 'add_group' %}'">Add Group</button>
+    <button type="button" class="add-button btn btn-outline-success" onclick="location.pathname='{% url 'add_group' %}'">Add Group</button>
 
 {% endblock %}
 

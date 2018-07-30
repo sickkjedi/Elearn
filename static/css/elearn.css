@@ -1,0 +1,39 @@
+h2 {
+    margin-left: 4%;
+    font-size: x-large;
+}
+
+.elearn-navbar {
+    justify-content: space-between;
+}
+
+.breadcrumb {
+    margin: 2%;
+}
+
+.dataTables_wrapper {
+    margin-left: 4%;
+    margin-right: 4%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.add-button {
+    margin-left: 4%;
+}
+
+.save-button {
+    margin-left: 4%;
+    position: relative;
+    float: left;
+    clear: both;
+}
+
+.input-form {
+    margin-left: 4%;
+    margin-right: 4%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    float: left;
+    clear: both;
+}
