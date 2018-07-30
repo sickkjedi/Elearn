@@ -1,8 +1,17 @@
 {% extends 'base.html' %}
+{% load bootstrap %}
 
 {% block title %}Add Chapter{% endblock %}
 
 {% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'courses' %}">Courses</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'chapters' form.course_id %}">Courses</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Chapter</li>
+    </ol>
+</nav>
     {% if request.user.is_staff %}
         <h2>Add Chapter</h2>
     {% else %}
@@ -12,10 +21,14 @@
 <form method="post">
     {% csrf_token %}
 
-    {{ form.as_p }}
+    <div class="input-form">
+        {{ form|bootstrap }}
+    </div>
 
     {% if request.user.is_staff %}
-        <button type="submit">Add</button>
+        <div class="save-button">
+            <button type="submit" class="btn btn-outline-primary" value="Update">Add</button>
+        </div>
     {% endif %}
 
 </form>
