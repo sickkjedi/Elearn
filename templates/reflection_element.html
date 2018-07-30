@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load bootstrap %}
 
 {% block title %}Reflection Element{% endblock %}
 
@@ -21,16 +22,19 @@
 
 <form method="post">
     {% csrf_token %}
+    <div class="input-form">
+    {{ form|bootstrap }}
+    </div>
 
-    {{ form.as_p }}
-
+    <div class="save-button">
     {% if request.user.is_staff %}
        {% if 'reflection' in request.get_full_path %}
-            <button type="submit" value="Update">Save</button>
+            <button type="submit" class="btn btn-outline-primary" value="Update">Save</button>
         {% elif 'add_reflection' in request.get_full_path %}
-            <button type="submit">Add</button>
+            <button type="submit" class="btn btn-outline-success">Add</button>
         {% endif %}
     {% endif %}
+    </div>
 
 </form>
 {% endblock %}

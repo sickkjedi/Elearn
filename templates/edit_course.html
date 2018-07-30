@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load bootstrap %}
 
 {% block title %}
     Edit course
@@ -15,14 +16,15 @@
     {{ form.media }}
     <script type="text/javascript" src="{% url 'jsi18n' %}" > </script>
 
-    <h2>Course: {{ object.course_name }}</h2>
+    <h2>Edit Course</h2>
 
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <div class = "btn-holder">
-        <button type="submit" value="Update">Save</button>
+    <div class="input-form">
+        {{ form|bootstrap }}
     </div>
-
+    <div class="save-button">
+        <button type="submit" class="btn btn-outline-primary" value="Update">Save</button>
+    </div>
 </form>
 {% endblock %}

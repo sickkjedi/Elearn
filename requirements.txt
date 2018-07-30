@@ -1,2 +1,5 @@
 Django==2.0.6
+django-bootstrap-form==3.4
+django-tinymce==2.7.0
 mysqlclient==1.3.12
+pytz==2018.4

@@ -11,10 +11,16 @@
 {% if request.user.is_authenticated and request.user.is_verified == True %}
     {% if request.user.is_admin %}
         <div class="container">
-        <div class="btn-group-vertical">
-            <button type="button" class="btn btn-primary" onclick="location.href = '{% url 'users' %}'">Users</button>
-            <button type="button" class="btn btn-primary" onclick="location.href = '{% url 'groups' %}'">Groups</button>
-            <button type="button" class="btn btn-primary" onclick="location.href = '{% url 'courses' %}'">Courses</button>
+        <div class="row">
+            <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2">
+                <button type="button" class="btn btn-primary btn-lg btn-info" onclick="location.href = '{% url 'users' %}'">Users</button>
+            </div>
+            <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2">
+            <button type="button" class="btn btn-primary btn-lg btn-info" onclick="location.href = '{% url 'groups' %}'">Groups</button>
+            </div>
+            <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2">
+            <button type="button" class="btn btn-primary btn-lg btn-info" onclick="location.href = '{% url 'courses' %}'">Courses</button>
+            </div>
         </div>
         </div>
     {% endif %}
