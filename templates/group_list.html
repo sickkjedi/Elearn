@@ -31,6 +31,13 @@
                     <div>
                         <button type="button" class="btn btn-outline-secondary" onclick="location.pathname='{% url 'edit_group' group.id %}'">Edit</button>
                     </div>
+
+                    <div>
+                        <button type="button" class="open-modal btn btn-outline-danger" data-toggle="modal" data-target="#deleteModalPrompt">Delete</button>
+
+                        {% url 'delete_group' group.id as delete_url %}
+                        {% include "delete_modal.html" with delete_url=delete_url type="group" %}
+                    </div>
                     </div>
                 </td>
 

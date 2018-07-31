@@ -37,33 +37,11 @@
                     </div>
 
                     <div>
-                        <button type="submit" class="open-modal btn btn-outline-danger" data-toggle="modal" data-target="#deleteModalPrompt">Delete</button>
+                        <button type="button" class="open-modal btn btn-outline-danger" data-toggle="modal" data-target="#deleteModalPrompt">Delete</button>
 
-                        <div class="modal fade" id="deleteModalPrompt" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                          <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="deleteModalPromptCenterTitle">Delete</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                              </div>
-                              <div class="modal-body">
-                                  <p>This will delete the course and all related elements. <br/> <br/>
-                                      Are you sure you want to continue?</p>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                  <form action="{% url 'delete_course' course.id %}" method="POST">
-                                      {% csrf_token %}
-                                      <button type="button" class="btn btn-danger">Delete</button>
-                                  </form>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        </div>
-
+                        {% url 'delete_course' course.id as delete_url %}
+                        {% include "delete_modal.html" with delete_url=delete_url type="course" %}
+                    </div>
                     </div>
                 </td>
 
@@ -72,10 +50,7 @@
     </tbody>
     </table>
 
-
     <button type="button" class="add-button btn btn-outline-success" onclick="location.pathname='{% url 'add_course' %}'">Add Course</button>
-
-
 
 
 {% endblock %}

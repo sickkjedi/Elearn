@@ -52,6 +52,13 @@
                         </div>
                     {% endif %}
 
+                    <div>
+                        <button type="button" class="open-modal btn btn-outline-danger" data-toggle="modal" data-target="#deleteModalPrompt">Delete</button>
+
+                        {% url 'delete_user' user.id as delete_url %}
+                        {% include "delete_modal.html" with delete_url=delete_url type="user" %}
+                    </div>
+
                     </div>
                 </td>
 

@@ -33,6 +33,13 @@ class EditGroup(UpdateView):
         return reverse('groups')
 
 
+class DeleteGroup(DeleteView):
+    model = Groups
+
+    def get_success_url(self):
+        return reverse('groups')
+
+
 class ListCourses(ListView):
     model = Courses
     context_object_name = 'courses'
