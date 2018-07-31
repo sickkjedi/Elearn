@@ -27,14 +27,20 @@
         {% for element in elements %}
             <tr>
 
-                {% if element.te_type == 'HTML' %}
-                    <td><a href='{% url 'edit_html_element' element.id %}'>{{ element.name }}</a></td>
-                {% elif element.te_type == 'Reflection' %}
-                    <td><a href='{% url 'edit_reflection_element' element.id %}'>{{ element.name }}</a></td>
-                {% endif %}
+                <td>{{ element.name }}</td>
                 <td>{{ element.te_type }}</td>
                 <td>{{ element.description }}</td>
-                <td>
+                <td><div class="activity-container">
+                    <div>
+                        {% if element.te_type == 'HTML' %}
+                            <button type="button" class="btn btn-outline-secondary" onclick="location.pathname='{% url 'edit_html_element' element.id %}'">Edit</button>
+                        {% elif element.te_type == 'Reflection' %}
+                            <button type="button" class="btn btn-outline-secondary" onclick="location.pathname='{% url 'edit_reflection_element' element.id %}'">Edit</button>
+                        {% endif %}
+
+                    </div>
+
+                    <div>
                     <button type="submit" class="open-modal btn btn-outline-danger" data-toggle="modal" data-target="#deleteModalPrompt">Delete</button>
 
                         <div class="modal fade" id="deleteModalPrompt" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -60,6 +66,8 @@
                             </div>
                           </div>
                         </div>
+                        </div>
+                    </div>
                 </td>
 
             </tr>

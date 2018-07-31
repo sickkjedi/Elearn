@@ -25,11 +25,17 @@
             {% if chapter.course_id == view.get_course_id %}
             <tr>
                 <td>{{ chapter.order_id }}</td>
-                <td><a href='{% url 'edit_chapter' chapter.id %}'>{{ chapter.name }}</a></td>
+                <td>{{ chapter.name }}</td>
                 <td><div class="activity-container">
                         <div>
                             <button type="button" class="btn btn-outline-secondary" onclick="location.pathname='{% url 'elements' chapter.id%}'">Elements</button>
                         </div>
+
+                        <div>
+                        <button type="button" class="btn btn-outline-secondary" onclick="location.pathname='{% url 'edit_chapter' chapter.id %}'">Edit</button>
+                        </div>
+
+                        <div>
                         <button type="submit" class="open-modal btn btn-outline-danger" data-toggle="modal" data-target="#deleteModalPrompt">Delete</button>
 
                         <div class="modal fade" id="deleteModalPrompt" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -54,6 +60,7 @@
                               </div>
                             </div>
                           </div>
+                        </div>
                         </div>
                     </div>
                 </td>

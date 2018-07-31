@@ -24,13 +24,19 @@
         {% for course in courses %}
             <tr>
 
-                <td><a href='{% url 'edit_course' course.id %}'>{{ course.course_name }}</a></td>
+                <td>{{ course.course_name }}</td>
                 <td>{{ course.description }}</td>
                 <td>{{ course.teacher }}</td>
                 <td><div class="activity-container">
                     <div>
                         <button type="button" class="btn btn-outline-secondary" onclick="location.pathname='{% url 'chapters' course.id%}'">Chapters</button>
                     </div>
+
+                    <div>
+                        <button type="button" class="btn btn-outline-secondary" onclick="location.pathname='{% url 'edit_course' course.id %}'">Edit</button>
+                    </div>
+
+                    <div>
                         <button type="submit" class="open-modal btn btn-outline-danger" data-toggle="modal" data-target="#deleteModalPrompt">Delete</button>
 
                         <div class="modal fade" id="deleteModalPrompt" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -56,6 +62,8 @@
                             </div>
                           </div>
                         </div>
+                        </div>
+
                     </div>
                 </td>
 
