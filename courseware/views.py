@@ -33,6 +33,13 @@ class EditGroup(UpdateView):
         return reverse('groups')
 
 
+class DeleteGroup(DeleteView):
+    model = Groups
+
+    def get_success_url(self):
+        return reverse('groups')
+
+
 class ListCourses(ListView):
     model = Courses
     context_object_name = 'courses'
@@ -112,11 +119,12 @@ class ListElements(ListView):
         return self.kwargs['pk']
 
     def get_queryset(self):
-        return self.model.objects.filter(chapter=self.get_chapter_id())
+        return self.model.objects.filter(chapter=self.get_chapter_id()).select_related()
 
     def get_context_data(self, **kwargs):
         context = super(ListElements, self).get_context_data(**kwargs)
         context['chapter_id'] = self.get_chapter_id()
+        context['course_id'] = Chapters.objects.get(id=self.get_chapter_id()).course_id
         return context
 
 
@@ -124,7 +132,7 @@ class EditElement(UpdateView, ABC):
 
     def get_form_kwargs(self):
         kwargs = super(EditElement, self).get_form_kwargs()
-        kwargs.update({'chapter_id': self.kwargs['pk']})
+        kwargs.update({'chapter_id': self.object.chapter_id})
         return kwargs
 
     def get_success_url(self):
@@ -132,7 +140,7 @@ class EditElement(UpdateView, ABC):
 
     def get_context_data(self, **kwargs):
         context = super(EditElement, self).get_context_data(**kwargs)
-        context['chapter_id'] = self.kwargs['pk']
+        context['chapter_id'] = self.object.chapter_id
         return context
 
 
@@ -152,7 +160,7 @@ class AddElement(CreateView, ABC):
 
     def get_form_kwargs(self):
         kwargs = super(AddElement, self).get_form_kwargs()
-        kwargs.update({'chapter_id': self.kwargs['pk']})
+        kwargs.update({'chapter_id': self.object.chapter_id})
         return kwargs
 
     def get_success_url(self):
@@ -160,7 +168,7 @@ class AddElement(CreateView, ABC):
 
     def get_context_data(self, **kwargs):
         context = super(AddElement, self).get_context_data(**kwargs)
-        context['chapter_id'] = self.kwargs['pk']
+        context['chapter_id'] = self.object.chapter_id
         return context
 
 

@@ -9,5 +9,6 @@ urlpatterns = [
     path('accounts/users/edit/<int:pk>', views.EditUser.as_view(), name='edit_user'),
     path('accounts/users/edit/<int:pk>/verified', views.VerifyUser.as_view(), name='verified'),
     path('accounts/users/edit/<int:pk>/suspend', views.SuspendUser.as_view(), name='suspend'),
+    path('accounts/users/edit/<int:pk>/delete', views.DeleteUser.as_view(), name='delete_user'),
     path('accounts/register', views.CreateView.as_view(), name='create'),
 ]

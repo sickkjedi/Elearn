@@ -1,8 +1,8 @@
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from loginUser.models import MyUser
 from loginUser.forms import UserCreationForm
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 
 class RegisterUser(CreateView):
@@ -28,19 +28,30 @@ class EditUser(UpdateView):
     context_object_name = 'users'
     template_name = 'edit_user.html'
     fields = ['email', 'date_of_birth', 'first_name', 'last_name', 'address']
-    success_url = reverse_lazy('users')
+
+    def get_success_url(self):
+        return reverse('users')
 
 
 class VerifyUser(UpdateView):
     model = MyUser
     context_object_name = 'users'
-    success_url = reverse_lazy('users')
     fields = ['is_verified']
+
+    def get_success_url(self):
+        return reverse('users')
 
 
 class SuspendUser(UpdateView):
     model = MyUser
-    success_url = reverse_lazy('users')
     fields = ['is_active']
 
+    def get_success_url(self):
+        return reverse('users')
 
+
+class DeleteUser(DeleteView):
+    model = MyUser
+
+    def get_success_url(self):
+        return reverse('users')

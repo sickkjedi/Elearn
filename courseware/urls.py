@@ -8,6 +8,7 @@ urlpatterns = [
     path('groups', views.ListGroups.as_view(), name='groups'),
     path('groups/add_group', views.AddGroup.as_view(), name='add_group'),
     path('groups/<int:pk>', views.EditGroup.as_view(), name='edit_group'),
+    path('groups/<int:pk>/delete', views.DeleteGroup.as_view(), name='delete_group'),
 
     path('courses', views.ListCourses.as_view(), name='courses'),
     path('courses/add_course', views.AddCourse.as_view(), name='add_course'),

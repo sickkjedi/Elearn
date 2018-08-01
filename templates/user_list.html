@@ -11,7 +11,7 @@
 </nav>
 <h2>User list</h2>
 
-    <table id="userTable" class="table table-striped table-bordered table-hover">
+    <table id="userTable" class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>Name</th>
@@ -26,22 +26,40 @@
         {% for user in users %}
             <tr>
 
-                <td><a href='{% url 'edit_user' user.id %}'>{{ user.first_name|add:" "|add:user.last_name }}</a></td>
+                <td>{{ user.first_name|add:" "|add:user.last_name }}</td>
                 <td>{{ user.email }}</td>
                 <td class="is-active">{{ user.is_active }}</td>
                 <td>{{ user.address }}</td>
                 <td>{{ user.date_of_birth }}</td>
-                <td>
+                <td><div class="activity-container">
                     {% if user.is_verified == False %}
+                        <div>
                         <button data-url="{% url 'verified' pk=user.id %}" type="button" class="verify_btn">Verify</button>
+                        </div>
                     {% endif %}
+
+                    <div>
+                        <button type="button" class="btn btn-outline-secondary" onclick="location.pathname='{% url 'edit_user' user.id %}'">Edit</button>
+                    </div>
 
                     {% if user.is_active == True %}
-                        <button data-url="{% url 'suspend' pk=user.id %}" data-active="{{ user.is_active }}" type="button" class="suspend_btn btn btn-outline-secondary">Suspend</button>
+                        <div>
+                        <button data-url="{% url 'suspend' pk=user.id %}" data-active="{{ user.is_active }}" type="button" class="suspend_btn btn btn-outline-warning">Suspend</button>
+                        </div>
                     {% elif user.is_active == False%}
-                        <button data-url="{% url 'suspend' pk=user.id %}" data-active="{{ user.is_active }}" type="button" class="suspend_btn btn btn-outline-secondary">Unsuspend</button>
+                        <div>
+                        <button data-url="{% url 'suspend' pk=user.id %}" data-active="{{ user.is_active }}" type="button" class="suspend_btn btn btn-outline-warning">Unsuspend</button>
+                        </div>
                     {% endif %}
 
+                    <div>
+                        <button type="button" class="open-modal btn btn-outline-danger" data-toggle="modal" data-target="#{{ course.id }}_deleteModalPrompt">Delete</button>
+
+                        {% url 'delete_user' user.id as delete_url %}
+                        {% include "delete_modal.html" with delete_url=delete_url type="user" entity_id=course.id %}
+                    </div>
+
+                    </div>
                 </td>
 
             </tr>

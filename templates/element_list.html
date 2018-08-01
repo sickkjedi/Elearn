@@ -7,11 +7,11 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
         <li class="breadcrumb-item"><a href="{% url 'courses' %}">Courses</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'chapters' chapter_id %}">Chapters</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'chapters' course_id %}">Chapters</a></li>
         <li class="breadcrumb-item active" aria-current="page">Elements</li>
-
     </ol>
 </nav>
+
 <h2>Element list</h2>
 
     <table id="elementsTable" class="table table-striped table-bordered nowrap">
@@ -25,28 +25,40 @@
     </thead>
     <tbody>
         {% for element in elements %}
+
             <tr>
 
-                {% if element.te_type == 'HTML' %}
-                    <td><a href='{% url 'edit_html_element' element.id %}'>{{ element.name }}</a></td>
-                {% elif element.te_type == 'Reflection' %}
-                    <td><a href='{% url 'edit_reflection_element' element.id %}'>{{ element.name }}</a></td>
-                {% endif %}
+                <td>{{ element.name }}</td>
                 <td>{{ element.te_type }}</td>
                 <td>{{ element.description }}</td>
-                <td><form action="{% url 'delete_element' element.id%}" method="POST">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Are you sure? This will delete the element!')">Delete</button>
-                    </form>
+                <td><div class="activity-container">
+                    <div>
+                        {% if element.te_type == 'HTML' %}
+                            <button type="button" class="btn btn-outline-secondary" onclick="location.pathname='{% url 'edit_html_element' element.id %}'">Edit</button>
+                        {% elif element.te_type == 'Reflection' %}
+                            <button type="button" class="btn btn-outline-secondary" onclick="location.pathname='{% url 'edit_reflection_element' element.id %}'">Edit</button>
+                        {% endif %}
+
+                    </div>
+
+                     <div>
+                            <button type="button" class="open-modal btn btn-outline-danger" data-toggle="modal" data-target="#{{ course.id }}_deleteModalPrompt">Delete</button>
+
+                            {% url 'delete_element' element.id as delete_url %}
+                            {% include "delete_modal.html" with delete_url=delete_url type="element" entity_id=course.id %}
+                     </div>
+                    </div>
                 </td>
 
             </tr>
+
         {% endfor %}
     </tbody>
     </table>
 
     <button type="button" class="add-button btn btn-outline-success" onclick="location.pathname='{% url 'add_html_element' chapter_id %}'">Add HTML Element</button>
     <button type="button" class="add-button btn btn-outline-success" onclick="location.pathname='{% url 'add_reflection_element' chapter_id %}'">Add Reflection Element</button>
+
 
 {% endblock %}
 

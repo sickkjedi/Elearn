@@ -44,6 +44,9 @@ class TeachingElementBase(models.Model):
     def __str__(self):
         return self.name
 
+    def get_course_id(self):
+        return self.chapter.course_id
+
 
 class HtmlTE(TeachingElementBase):
     html = models.TextField()
