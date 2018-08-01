@@ -28,7 +28,7 @@
                 <td>{{ chapter.name }}</td>
                 <td><div class="activity-container">
                         <div>
-                            <button type="button" class="btn btn-outline-secondary" onclick="location.pathname='{% url 'elements' chapter.id%}'">Elements</button>
+                            <button type="button" class="btn btn-outline-primary" onclick="location.pathname='{% url 'elements' chapter.id%}'">Elements</button>
                         </div>
 
                         <div>
@@ -36,10 +36,10 @@
                         </div>
 
                         <div>
-                            <button type="button" class="open-modal btn btn-outline-danger" data-toggle="modal" data-target="#deleteModalPrompt">Delete</button>
+                            <button type="button" class="open-modal btn btn-outline-danger" data-toggle="modal" data-target="#{{ course.id }}_deleteModalPrompt">Delete</button>
 
                             {% url 'delete_chapter' chapter.id as delete_url %}
-                            {% include "delete_modal.html" with delete_url=delete_url type="chapter" %}
+                            {% include "delete_modal.html" with delete_url=delete_url type="chapter" entity_id=course.id %}
                         </div>
                     </div>
                 </td>

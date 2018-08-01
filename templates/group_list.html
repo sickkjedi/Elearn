@@ -33,10 +33,10 @@
                     </div>
 
                     <div>
-                        <button type="button" class="open-modal btn btn-outline-danger" data-toggle="modal" data-target="#deleteModalPrompt">Delete</button>
+                        <button type="button" class="open-modal btn btn-outline-danger" data-toggle="modal" data-target="#{{ course.id }}_deleteModalPrompt">Delete</button>
 
                         {% url 'delete_group' group.id as delete_url %}
-                        {% include "delete_modal.html" with delete_url=delete_url type="group" %}
+                        {% include "delete_modal.html" with delete_url=delete_url type="group" entity_id=course.id %}
                     </div>
                     </div>
                 </td>
