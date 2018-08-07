@@ -34,7 +34,8 @@
                 <td><div class="activity-container">
                     {% if user.is_verified == False %}
                         <div>
-                        <button data-url="{% url 'verified' pk=user.id %}" type="button" class="verify_btn">Verify</button>
+                            <button data-url="{% url 'verified' pk=user.id %}" type="button" class="verify_btn btn btn-outline-danger">
+                                Verify</button>
                         </div>
                     {% endif %}
 

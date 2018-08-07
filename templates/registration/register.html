@@ -1,12 +1,26 @@
 {% extends 'base.html' %}
+{% load bootstrap %}
 
 {% block title %}Register{% endblock %}
 
 {% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {% if request.user.is_staff %}
+            Add User
+        {% else %}
+            Registration
+        {% endif %}
+    </li>
+  </ol>
+</nav>
+
     {% if request.user.is_staff %}
-        <h2>Add User</h2>
+        <h3>Add User</h3>
     {% else %}
-        <h2>Registration</h2>
+        <h3>Registration</h3>
     {% endif %}
 
 <form method="post">
@@ -14,11 +28,17 @@
     {% if request.user.is_staff %}
          <input type="checkbox" name="is_verified" checked style="display: none"/>
     {% endif %}
-    {{ form.as_p }}
+
+    <div class="input-form">
+        {{ form|bootstrap }}
+    </div>
+
+    <div id="login-btn">
     {% if request.user.is_staff %}
-        <button type="submit">Add</button>
+        <button type="submit" class="btn btn-success">Add</button>
     {% else %}
-        <button type="submit">Register</button>
+        <button type="submit" class="btn btn-success">Register</button>
     {% endif %}
+    </div>
 </form>
 {% endblock %}

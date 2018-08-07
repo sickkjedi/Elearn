@@ -29,6 +29,8 @@
     <p>You are not verified. Please wait to be verified by administrator.</p>
 {% else %}
     <p>You are not logged in</p>
-    <button type="button" class="btn btn-primary" onclick="location.href = '{% url 'login' %}'">Login</button>
+    <div id="login-btn">
+        <a class="btn btn-primary" href = "{% url 'login' %}">Login</a>
+    </div>
 {% endif %}
 {% endblock %}
