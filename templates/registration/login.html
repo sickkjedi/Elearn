@@ -28,8 +28,8 @@
         <button type="submit" class="btn btn-success">Login</button>
     </div>
     <div id="register-btn">
-        <button onclick="location.pathname='accounts/register'" type="button" class="btn btn-info">
-        Register an account</button>
+        <a href="{% url 'register' %}" class="btn btn-info">
+        Register an account</a>
     </div>
 </form>
 {% endblock %}

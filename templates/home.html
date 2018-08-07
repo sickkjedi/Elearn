@@ -30,7 +30,7 @@
 {% else %}
     <p>You are not logged in</p>
     <div id="login-btn">
-        <button type="button" class="btn btn-primary" onclick="location.href = '{% url 'login' %}'">Login</button>
+        <a class="btn btn-primary" href = "{% url 'login' %}">Login</a>
     </div>
 {% endif %}
 {% endblock %}
