@@ -3,6 +3,11 @@ h2 {
     font-size: x-large;
 }
 
+h3 {
+    margin-left: 4%;
+    margin-top: 3%;
+}
+
 .elearn-navbar {
     justify-content: space-between;
 }
@@ -46,4 +51,15 @@ h2 {
     margin-bottom: 2%;
     float: left;
     clear: both;
+}
+
+#login-btn {
+    clear: both;
+    margin-left: 4%;
+}
+
+#register-btn {
+    clear: both;
+    margin-left: 4%;
+    margin-top: 1%;
 }

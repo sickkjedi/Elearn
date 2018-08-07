@@ -13,7 +13,7 @@
     </ol>
 </nav>
     {{ form.media }}
-
+<div id="login page">
 <h2>Edit Chapter</h2>
 <form method="post">
     {% csrf_token %}
@@ -26,4 +26,5 @@
         <button type="submit" class="btn btn-outline-primary" value="Update">Save</button>
     </div>
 </form>
+</div>
 {% endblock %}

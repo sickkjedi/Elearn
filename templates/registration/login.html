@@ -1,20 +1,35 @@
 {% extends 'base.html' %}
+{% load bootstrap %}
 
 
 {% block title %}Login{% endblock %}
 
 {% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Login</li>
+  </ol>
+</nav>
 
     {% if user.is_authenticated and user.is_verified == True %}
         <meta http-equiv="REFRESH" content="0;url={% url 'home' %}">
     {% endif %}
 
-<h2>Login</h2>
+<h3>Login</h3>
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-    <button onclick="location.pathname='accounts/register'" type="button">
-     Register an account</button>
+
+    <div class="input-form">
+        {{ form|bootstrap }}
+    </div>
+
+    <div id="login-btn">
+        <button type="submit" class="btn btn-success">Login</button>
+    </div>
+    <div id="register-btn">
+        <button onclick="location.pathname='accounts/register'" type="button" class="btn btn-info">
+        Register an account</button>
+    </div>
 </form>
 {% endblock %}
