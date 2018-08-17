@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'student',
     'loginUser.apps.LoginConfig',
     'courseware.apps.CoursewareConfig',
 ]
@@ -63,6 +64,7 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'templates/registration'),
+            os.path.join(BASE_DIR, 'student/templates')
             ],
         'APP_DIRS': True,
         'OPTIONS': {

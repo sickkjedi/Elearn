@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+  <div id="student_home">
+    <h1>[[message]] {{ request.user.first_name }}</h1>
+  </div>
+
+{% endblock %}
+
+{% block js %}
+  <script type="text/javascript" src="{% static "dist/js/student/anton.bundle.min.js" %}"></script>
+{% endblock %}

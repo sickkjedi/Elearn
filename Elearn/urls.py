@@ -19,6 +19,7 @@ from django.views.generic.base import TemplateView
 
 
 urlpatterns = [
+    path('', include('student.urls', namespace='student')),
     path('', include('loginUser.urls')),
     path('', include('courseware.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
