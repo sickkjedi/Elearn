@@ -3,34 +3,37 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item active" aria-current="page">Home</li>
-  </ol>
-</nav>
-{% if request.user.is_authenticated and request.user.is_verified == True %}
+
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home</li>
+      </ol>
+    </nav>
+
+  {% if request.user.is_authenticated and request.user.is_verified == True %}
     {% if request.user.is_admin %}
-        <div class="container">
-        <div class="row">
-            <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2">
-                <button type="button" class="btn btn-primary btn-lg btn-info" onclick="location.href = '{% url 'users' %}'">Users</button>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2">
-            <button type="button" class="btn btn-primary btn-lg btn-info" onclick="location.href = '{% url 'groups' %}'">Groups</button>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2">
-            <button type="button" class="btn btn-primary btn-lg btn-info" onclick="location.href = '{% url 'courses' %}'">Courses</button>
-            </div>
+      <div class="container">
+      <div class="row">
+        <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2">
+          <button type="button" class="btn btn-primary btn-lg btn-info" onclick="location.href = '{% url 'users' %}'">Users</button>
         </div>
+        <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2">
+          <button type="button" class="btn btn-primary btn-lg btn-info" onclick="location.href = '{% url 'groups' %}'">Groups</button>
         </div>
+        <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2">
+          <button type="button" class="btn btn-primary btn-lg btn-info" onclick="location.href = '{% url 'courses' %}'">Courses</button>
+        </div>
+      </div>
+      </div>
     {% endif %}
 
-{% elif request.user.is_authenticated and not request.user.is_verified %}
+  {% elif request.user.is_authenticated and not request.user.is_verified %}
     <p>You are not verified. Please wait to be verified by administrator.</p>
-{% else %}
+  {% else %}
     <p>You are not logged in</p>
     <div id="login-btn">
-        <a class="btn btn-primary" href = "{% url 'login' %}">Login</a>
+      <a class="btn btn-primary" href = "{% url 'login' %}">Login</a>
     </div>
-{% endif %}
+  {% endif %}
+
 {% endblock %}
