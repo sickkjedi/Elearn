@@ -1,9 +1,9 @@
 import Vue from 'vue'
 
-let vm = new Vue({
-  el: '#student_home',
+const vm = new Vue({
+  el: '#student-home',
   data: {
-    message: 'Cao'
+    message: 'neki podaci'
   },
   delimiters: ["[[","]]"]
 });

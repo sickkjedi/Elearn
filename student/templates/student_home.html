@@ -3,8 +3,17 @@
 
 {% block content %}
 
-  <div id="student_home">
-    <h1>[[message]] {{ request.user.first_name }}</h1>
+  <div id="student-home" class="row">
+    <div id="course-list" class="container col-3 list-group">
+      <a href="#" class="list-group-item list-group-item-action list-group-item-primary">Course 1</a>
+      <a href="#" class="list-group-item list-group-item-action list-group-item-primary">Course 2</a>
+      <a href="#" class="list-group-item list-group-item-action list-group-item-primary">Course 3</a>
+    </div>
+
+    <div id="main-window" class="container-fluid col-9">
+      <h3>[[message]]</h3>
+
+    </div>
   </div>
 
 {% endblock %}
