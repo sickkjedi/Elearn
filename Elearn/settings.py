@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'debug_toolbar',
     'bootstrapform',
     'tinymce',
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'student',
+    'api',
     'loginUser.apps.LoginConfig',
     'courseware.apps.CoursewareConfig',
 ]
