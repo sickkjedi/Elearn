@@ -1,9 +1,8 @@
 from rest_framework import viewsets
 
 from loginUser.models import MyUser
-from courseware.models import Groups, Courses
-
-from api.serializers import UserSerializer, GroupSerializer, CourseSerializer
+from courseware.models import Groups
+from api.serializers import UserSerializer, GroupSerializer
 
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
@@ -13,22 +12,18 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = MyUser.objects.all()
     serializer_class = UserSerializer
 
-    # def get_object(self):
-    #
-    # def get_queryset(self):
+    def get_queryset(self):
+        user_id = self.request.user.id
+        return MyUser.objects.filter(id=user_id)
 
 
-class GroupViewSet(viewsets.ReadOnlyModelViewSet):
+class GroupsCoursesViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    API endpoint that allows groups to be viewed.
+    API endpoint that allows courses and groups to be viewed.
     """
     queryset = Groups.objects.all()
     serializer_class = GroupSerializer
 
-
-class CourseViewSet(viewsets.ReadOnlyModelViewSet):
-    """
-    API endpoint that allows courses to be viewed.
-    """
-    queryset = Courses.objects.all()
-    serializer_class = CourseSerializer
+    def get_queryset(self):
+        user_id = self.request.user.id
+        return Groups.objects.filter(users__id=user_id)

@@ -21,9 +21,8 @@ from api import views
 
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
-router.register(r'courses', views.CourseViewSet)
+router.register(r'user_api', views.UserViewSet)
+router.register(r'courses_api', views.GroupsCoursesViewSet, base_name='courses_api')
 
 urlpatterns = [
     path('', include('student.urls', namespace='student')),
