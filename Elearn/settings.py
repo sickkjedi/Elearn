@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'drf_multiple_model',
     'rest_framework',
     'debug_toolbar',
     'bootstrapform',

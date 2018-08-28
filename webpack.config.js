@@ -3,7 +3,7 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: {
-    'student/anton': './student/static/student/js/home.js'
+    'student/anton': './student/static/student/js/main.js'
   },
   output: {
     path: path.resolve(__dirname, './static/dist/js/'),

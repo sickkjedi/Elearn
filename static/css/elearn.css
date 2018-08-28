@@ -68,10 +68,14 @@ h3 {
     margin: 3%;
 }
 
-#course-list {
-
+.course-list {
+    float: left;
 }
 
 #main-window {
-    background-color: cadetblue;
+    background-color: lightblue;
+}
+
+.group-section {
+    margin-top: 5%;
 }

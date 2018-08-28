@@ -4,15 +4,15 @@
 {% block content %}
 
   <div id="student-home" class="row">
-    <div id="course-list" class="container col-3 list-group">
-      <a href="#" class="list-group-item list-group-item-action list-group-item-primary">Course 1</a>
-      <a href="#" class="list-group-item list-group-item-action list-group-item-primary">Course 2</a>
-      <a href="#" class="list-group-item list-group-item-action list-group-item-primary">Course 3</a>
+    <div class="course-list col-3 list-group">
+      <div class="group-section" v-for="result in results">
+        <a href="#" class="list-group-item list-group-item-success">Group: [[result.group_name]]</a>
+        <a href="#" class="list-group-item list-group-item-action" v-for="course in result.courses_set">[[course.course_name]]</a>
+      </div>
     </div>
 
     <div id="main-window" class="container-fluid col-9">
-      <h3>[[message]]</h3>
-
+      <p>course desc.</p>
     </div>
   </div>
 
