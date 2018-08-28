@@ -2,7 +2,7 @@ import Vue from 'vue';
 
 const axios = require('axios');
 
-const course_api = "http://127.0.0.1:8000/courses_api/";
+const course_api = "/courses_api/";
 
 const vm = new Vue({
   el: '#student-home',
