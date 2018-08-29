@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from loginUser.models import MyUser
-from courseware.models import Groups, Courses
+from courseware.models import Groups, Courses, Chapters, HtmlTE, Reflection
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -23,3 +23,25 @@ class GroupSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = Groups
         fields = ('id', 'group_name', 'description', 'courses_set')
+
+
+class HtmlTESerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = HtmlTE
+        fields = ('name', 'description', 'html')
+
+
+class ReflectionTESerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Reflection
+        fields = ('name', 'description', 'question')
+
+
+class ChapterSerializer(serializers.ModelSerializer):
+    # htmlte_set = HtmlTESerializer(many=True)
+
+    class Meta(object):
+        model = Chapters
+        fields = ('name', 'id')

@@ -7,12 +7,18 @@ const course_api = "/courses_api/";
 const vm = new Vue({
   el: '#student-home',
   data: {
-    results: []
+    results: [],
+    chapters: []
+  },
+  methods: {
+    showCourse: function (course_id){
+      alert(course_id);
+    }
   },
 
   mounted() {
     axios.get(course_api)
-    .then(response => {this.results = response.data; console.log(response.data);})
+    .then(response => {this.results = response.data;})
   },
 
   delimiters: ["[[","]]"]

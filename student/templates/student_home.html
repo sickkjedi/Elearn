@@ -7,7 +7,7 @@
     <div class="course-list col-3 list-group">
       <div class="group-section" v-for="result in results">
         <a href="#" class="list-group-item list-group-item-success">Group: [[result.group_name]]</a>
-        <a href="#" class="list-group-item list-group-item-action" v-for="course in result.courses_set">[[course.course_name]]</a>
+        <button class="list-group-item list-group-item-action" v-on:click="showCourse(course.id)" v-for="course in result.courses_set ">[[course.course_name]]</button>
       </div>
     </div>
 
