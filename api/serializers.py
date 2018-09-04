@@ -40,7 +40,6 @@ class ReflectionTESerializer(serializers.ModelSerializer):
 
 
 class ChapterSerializer(serializers.ModelSerializer):
-    # htmlte_set = HtmlTESerializer(many=True)
 
     class Meta(object):
         model = Chapters

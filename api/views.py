@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 
 from loginUser.models import MyUser
-from courseware.models import Groups, Chapters
+from courseware.models import Groups, Chapters, TeachingElementBase
 from api.serializers import UserSerializer, GroupSerializer, ChapterSerializer
 
 
@@ -29,9 +29,9 @@ class GroupsCoursesViewSet(viewsets.ReadOnlyModelViewSet):
         return Groups.objects.filter(users__id=user_id)
 
 
-class ChaptersElementsViewSet(viewsets.ReadOnlyModelViewSet):
+class ChaptersViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    API endpoint that allows chapters and elements to be viewed.
+    API endpoint that allows chapters to be viewed.
     """
     queryset = Chapters.objects.all()
     serializer_class = ChapterSerializer
@@ -40,3 +40,12 @@ class ChaptersElementsViewSet(viewsets.ReadOnlyModelViewSet):
         course_pk = self.kwargs.get('course_id')
         query = {"course_id": course_pk} if course_pk else {}
         return Chapters.objects.filter(**query)
+
+
+# class ElementViewSet(viewsets.ReadOnlyModelViewSet):
+#     """
+#     API endpoint that allows elements to be viewed.
+#     """
+#     queryset = TeachingElementBase.objects.all()
+#
+

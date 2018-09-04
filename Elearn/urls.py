@@ -23,8 +23,8 @@ from api import views
 router = routers.DefaultRouter()
 router.register(r'user_api', views.UserViewSet)
 router.register(r'courses_api', views.GroupsCoursesViewSet, base_name='courses_api')
-router.register(r'chapters_api/(?P<course_id>\d+)', views.ChaptersElementsViewSet, base_name='chapters_api')
-router.register(r'chapters_api', views.ChaptersElementsViewSet, base_name='chapters_api')
+router.register(r'chapters_api/(?P<course_id>\d+)', views.ChaptersViewSet, base_name='chapters_api')
+router.register(r'chapters_api', views.ChaptersViewSet, base_name='chapters_api')
 
 
 urlpatterns = [

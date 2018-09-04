@@ -79,3 +79,9 @@ h3 {
 .group-section {
     margin-top: 5%;
 }
+
+.chapter-button {
+    float: left;
+    clear: both;
+    margin: 1%;
+  }

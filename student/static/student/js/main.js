@@ -1,25 +1,17 @@
+Vue.config.devtools = true;
+
 import Vue from 'vue';
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
 
-const axios = require('axios');
+Vue.use(Vuetify);
 
-const course_api = "/courses_api/";
+import CourseList from './components/course-list.vue';
 
 const vm = new Vue({
   el: '#student-home',
-  data: {
-    results: [],
-    chapters: []
-  },
-  methods: {
-    showCourse: function (course_id){
-      alert(course_id);
-    }
-  },
 
-  mounted() {
-    axios.get(course_api)
-    .then(response => {this.results = response.data;})
-  },
+  components: { CourseList },
 
   delimiters: ["[[","]]"]
 });
