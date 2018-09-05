@@ -1,6 +1,6 @@
 <template>
   <v-list>
-    <v-list-tile v-for="chapter in chapters" v-on:click="">
+    <v-list-tile v-for="chapter in chapters" v-on:click="sendData(chapter.id)">
       <v-list-tile-content>
         <v-list-tile-title v-text="chapter.name"></v-list-tile-title>
       </v-list-tile-content>
@@ -10,6 +10,7 @@
 
 <script>
   const axios = require('axios');
+  import { serverBus } from '../main';
 
   const course_info_api = "/chapters_api/";
 
@@ -28,6 +29,10 @@
       loadChapters: function (course_id) {
         axios.get(course_info_api + course_id).then(response => {this.chapters = response.data;});
       },
+      sendData: function (chapter_id) {
+        serverBus.$emit('sendData', chapter_id)
+      }
+
     },
 
     mounted() {

@@ -1,5 +1,3 @@
-import chapter
-
 <template>
   <div id="course-list" class="col-3 list-group">
     <div class="group-section" v-for="group in groups">
@@ -18,7 +16,6 @@ import chapter
       </v-expansion-panel>
       </div>
   </div>
-
 </template>
 
 <script>
