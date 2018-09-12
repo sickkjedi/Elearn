@@ -160,15 +160,15 @@ class AddElement(CreateView, ABC):
 
     def get_form_kwargs(self):
         kwargs = super(AddElement, self).get_form_kwargs()
-        kwargs.update({'chapter_id': self.object.chapter_id})
+        kwargs.update({'chapter_id': self.kwargs.get('pk')})
         return kwargs
 
     def get_success_url(self):
-        return reverse('elements', kwargs={'pk': self.object.chapter_id})
+        return reverse('elements', kwargs={'pk': self.kwargs.get('pk')})
 
     def get_context_data(self, **kwargs):
         context = super(AddElement, self).get_context_data(**kwargs)
-        context['chapter_id'] = self.object.chapter_id
+        context['chapter_id'] = self.kwargs.get('pk')
         return context
 
 

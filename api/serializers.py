@@ -36,20 +36,23 @@ class TEISerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TeachingElementBase
-        fields = ['name', 'description', 'te_type']
+        fields = ['id', 'name', 'te_type']
+
+
+# Specific element serializers
 
 
 class HtmlTESerializer(serializers.ModelSerializer):
 
     class Meta:
         model = HtmlTE
-        fields = ('name', 'description', 'html')
+        fields = ('name', 'description', 'html', 'te_type')
 
 
 class ReflectionTESerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Reflection
-        fields = ('name', 'description', 'question')
+        fields = ('name', 'description', 'question', 'te_type')
 
 

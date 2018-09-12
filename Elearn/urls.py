@@ -27,6 +27,7 @@ router.register(r'chapters_api/(?P<course_id>\d+)', views.ChaptersViewSet, base_
 router.register(r'chapters_api', views.ChaptersViewSet, base_name='chapters_api')
 router.register(r'elements_api/(?P<chapter_id>\d+)', views.ElementViewSet, base_name='elements_api')
 router.register(r'elements_api', views.ElementViewSet, base_name='elements_api')
+router.register(r'tei_api/(?P<element_id>\d+)', views.TEIViewSet, base_name='tei_api')
 
 urlpatterns = [
     path('', include('student.urls', namespace='student')),

@@ -1,8 +1,9 @@
 from rest_framework import viewsets
 
 from loginUser.models import MyUser
-from courseware.models import Groups, Chapters, TeachingElementBase
-from api.serializers import UserSerializer, GroupSerializer, ChapterSerializer, TEISerializer
+from courseware.models import Groups, Chapters, TeachingElementBase, HtmlTE, Reflection
+from api.serializers import UserSerializer, GroupSerializer, ChapterSerializer, \
+    TEISerializer, HtmlTESerializer, ReflectionTESerializer
 
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
@@ -53,5 +54,34 @@ class ElementViewSet(viewsets.ReadOnlyModelViewSet):
         chapter_pk = self.kwargs.get('chapter_id')
         query = {"chapter_id": chapter_pk} if chapter_pk else {}
         return TeachingElementBase.objects.filter(**query)
+
+
+class TEIViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    API endpoint that allows element data to be viewed.
+    """
+
+    queryset = TeachingElementBase.objects.all()
+    serializer_class = TEISerializer
+
+    def get_queryset(self):
+        def get_te_element(element_id):
+            return TeachingElementBase.objects.filter(id=element_id).first().te_type
+
+        element_pk = self.kwargs.get('element_id')
+        query = {"id": element_pk} if element_pk else {}
+
+        if get_te_element(element_pk) == 'HTML':
+            self.serializer_class = HtmlTESerializer
+            return HtmlTE.objects.filter(**query)
+        elif get_te_element(element_pk) == 'Reflection':
+            self.serializer_class = ReflectionTESerializer
+            return Reflection.objects.filter(**query)
+
+
+
+
+
+
 
 
