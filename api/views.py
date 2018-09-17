@@ -78,10 +78,3 @@ class TEIViewSet(viewsets.ReadOnlyModelViewSet):
             self.serializer_class = ReflectionTESerializer
             return Reflection.objects.filter(**query)
 
-
-
-
-
-
-
-
