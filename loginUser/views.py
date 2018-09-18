@@ -2,14 +2,16 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from loginUser.models import MyUser
 from loginUser.forms import UserCreationForm
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse
 
 
 class RegisterUser(CreateView):
     model = MyUser
     template_name = 'registration/register.html'
     form_class = UserCreationForm
-    success_url = reverse_lazy('login')
+
+    def get_success_url(self):
+        return reverse('login')
 
     def get_form_kwargs(self, **kwargs):
         kwargs = super(RegisterUser, self).get_form_kwargs()

@@ -16,11 +16,25 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView
+from rest_framework import routers
+from api import views
 
+
+router = routers.DefaultRouter()
+router.register(r'user_api', views.UserViewSet)
+router.register(r'courses_api', views.GroupsCoursesViewSet, base_name='courses_api')
+router.register(r'chapters_api/(?P<course_id>\d+)', views.ChaptersViewSet, base_name='chapters_api')
+router.register(r'chapters_api', views.ChaptersViewSet, base_name='chapters_api')
+router.register(r'elements_api/(?P<chapter_id>\d+)', views.ElementViewSet, base_name='elements_api')
+router.register(r'elements_api', views.ElementViewSet, base_name='elements_api')
+router.register(r'tei_api/(?P<element_id>\d+)', views.TEIViewSet, base_name='tei_api')
 
 urlpatterns = [
+    path('', include('student.urls', namespace='student')),
     path('', include('loginUser.urls')),
     path('', include('courseware.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('admin/', admin.site.urls),
+    path('', include(router.urls)),
+    path('api/', include('rest_framework.urls', namespace='rest_framework'))
 ]

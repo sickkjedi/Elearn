@@ -1,0 +1,45 @@
+{
+  "name": "elearn",
+  "version": "1.0.0",
+  "description": "test project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch",
+    "build": "NODE_ENV=production webpack  --progress --hide-modules"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/sickkjedi/Elearn.git"
+  },
+  "keywords": [
+    "test"
+  ],
+  "author": "anton",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sickkjedi/Elearn/issues"
+  },
+  "homepage": "https://github.com/sickkjedi/Elearn#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "npm": "^6.4.0",
+    "vue": "^2.5.17"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "css-loader": "^1.0.0",
+    "imports-loader": "^0.8.0",
+    "vue-loader": "^15.4.1",
+    "vue-template-compiler": "^2.5.17",
+    "vuetify": "^1.2.1",
+    "webpack": "3.10.0"
+  }
+}

@@ -63,3 +63,29 @@ h3 {
     margin-left: 4%;
     margin-top: 1%;
 }
+
+#student-home {
+    margin: 3%;
+}
+
+.course-list {
+    float: left;
+}
+
+#main-window {
+    background-color: lightblue;
+}
+
+.group-section {
+    margin-top: 5%;
+}
+
+.chapter-button {
+    float: left;
+    clear: both;
+    margin: 1%;
+  }
+
+#element-list {
+    margin-top: 3%;
+}

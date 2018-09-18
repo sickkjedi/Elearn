@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+  <div id="student-home" class="row">
+    <course-list></course-list>
+
+    <div id="main-window" class="container-fluid col-9">
+      <element-list></element-list>
+    </div>
+
+  </div>
+
+{% endblock %}
+
+{% block js %}
+  <script type="text/javascript" src="{% static "dist/js/student/anton.bundle.min.js" %}"></script>
+{% endblock %}
